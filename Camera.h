@@ -12,6 +12,8 @@ private:
 	static constexpr float LookAtHeight = 10;			//注視点からの高さのオフセット
 	static constexpr float CameraDistance = 900;		//カメラ座標までの距離
 	static constexpr float CameraAngleSpeed = 0.1f;	//カメラの回転速度
+	static constexpr float CameraMaxVAngle = 80.0f;	//カメラの縦回転の最大値
+	static constexpr float CameraMinVAngle = 2.0f;	//カメラの縦回転の最小値
 
 	Transform* m_transform;		//姿勢情報
 	Actor* m_lookAt;			//注視するオブジェクト
@@ -36,7 +38,7 @@ public:
 		m_transform(nullptr),
 		m_lookAt(nullptr),
 		m_cameraHAngle(0),
-		m_cameraVAngle(21),
+		m_cameraVAngle(0),
 		m_isDisplayMouse(false)
 	{
 		m_transform = new Transform();

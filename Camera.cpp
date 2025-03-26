@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Input.h"
 #include "Math.h"
+#include "Screen.h"
 
 //更新
 void Camera::Update()
@@ -68,9 +69,9 @@ void Camera::MouseCamera()
 	//マウスでカメラの操作
 	Input::GetInstance()->SetMouseDispFlag(false);
 	Vector2 mousePos = Input::GetInstance()->GetMousePoint();
-	m_cameraHAngle -= (mousePos.x - 640) * CameraAngleSpeed;
-	m_cameraVAngle += (mousePos.y - 360) * CameraAngleSpeed;
-	Input::GetInstance()->SetMousePoint(640, 360);
-	if (m_cameraVAngle >= 80.0f) m_cameraVAngle = 80.0f;
-	if (m_cameraVAngle <= 0.0f) m_cameraVAngle = 0.0f;
+	m_cameraHAngle -= (mousePos.x - Screen::Center.x) * CameraAngleSpeed;
+	m_cameraVAngle += (mousePos.y - Screen::Center.y) * CameraAngleSpeed;
+	Input::GetInstance()->SetMousePoint(Screen::Center.x, Screen::Center.y);
+	if (m_cameraVAngle >= CameraMaxVAngle) m_cameraVAngle = CameraMaxVAngle;
+	if (m_cameraVAngle <= CameraMinVAngle) m_cameraVAngle = CameraMinVAngle;
 }
