@@ -29,9 +29,9 @@ void Camera::Update()
 
 	Vector3 TempPosition1;
 	Vector3 TempPosition2;
-	Vector3 CameraLookAtPosition;
-	CameraLookAtPosition = m_lookAt->GetPosition();
-	CameraLookAtPosition.y += LookAtHeight;
+	Vector3 CameraLookAtPosition;						//注視点
+	CameraLookAtPosition = m_lookAt->GetPosition();		//注視点を設定
+	CameraLookAtPosition.y += LookAtHeight;				//注視点のオフセット
 
 	//最初に垂直角度を反映した位置を算出
 	float sinParam = sin(Math::DegToRad(m_cameraVAngle));

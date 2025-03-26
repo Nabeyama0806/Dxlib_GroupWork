@@ -23,10 +23,13 @@ Model::Model(const char* modelFileName) :
 //リソースの読み込み
 void Model::Load()
 {
+	//モデルの識別番号を取得
 	m_modelHandle = ModelLoader::GetInstance()->Load(m_modelFileName);
-	MV1SetupCollInfo(m_modelHandle, 0, 8, 8, 8);
+	
+	//アニメーションが指定されている時
 	for (auto anime : m_animeList)
 	{
+		//モデルにアニメーションをアタッチ
 		anime->Load(m_modelHandle);
 	}
 }

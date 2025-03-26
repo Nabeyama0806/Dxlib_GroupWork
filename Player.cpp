@@ -44,20 +44,27 @@ void Player::Update()
 	//カメラの向きを考慮した移動量
 	move = cameraForward * move.z + m_camera->GetRight() * move.x;
 
+	//待機アニメーションを設定
 	int animeIndex = static_cast<int>(Model::Anime::Idle);
+
+	//動いている時
 	if (!move.IsZero())
 	{
+		//移動
 		move.Normalize();
 		m_transform.position += move * Speed * speedRate;
 
+		//回転
 		m_transform.rotation = Quaternion::Slerp(
 			m_transform.rotation,
 			Quaternion::LookRotation(move),
 			0.2f);
 
+		//移動アニメーションを設定
 		animeIndex = static_cast<int>(Model::Anime::Run);
 	}
 	
+	//設定したアニメーションの再生
 	m_model->PlayAnime(animeIndex);
 }
 
