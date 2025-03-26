@@ -10,8 +10,8 @@ class Camera : public Node
 private:
 	static constexpr Vector3 SpawnPos = Vector3(0, 170, -400);
 	static constexpr float LookAtHeight = 10;			//注視点からの高さのオフセット
-	static constexpr float m_cameraDistance = 900;		//カメラ座標までの距離
-	static constexpr float m_cameraAngleSpeed = 1.5f;	//カメラの回転速度
+	static constexpr float CameraDistance = 900;		//カメラ座標までの距離
+	static constexpr float CameraAngleSpeed = 0.1f;	//カメラの回転速度
 
 	Transform* m_transform;		//姿勢情報
 	Actor* m_lookAt;			//注視するオブジェクト
@@ -21,6 +21,8 @@ private:
 	
 	float m_cameraHAngle;		//横回転
 	float m_cameraVAngle;		//縦回転
+
+	void MouseCamera();
 
 protected:
 	virtual void Update();	//更新

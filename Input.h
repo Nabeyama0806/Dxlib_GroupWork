@@ -69,6 +69,12 @@ public:
 		return	m_mousePoint;
 	}
 
+	void SetMousePoint(float posX, float posY)
+	{
+		DxLib::SetMousePoint(posX, posY);
+		m_mousePoint = Vector2(posX, posY);
+	}
+
 	//マウスホイールを取得
 	int GetMouseHweelRot()
 	{
