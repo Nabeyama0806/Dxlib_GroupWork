@@ -5,7 +5,6 @@
 //更新
 void Input::Update()
 {
-	DxLib::SetMouseDispFlag(FALSE);	//マウスカーソルを表示
 	//キーボード
 
 	//前フレームのキー入力状態を保存

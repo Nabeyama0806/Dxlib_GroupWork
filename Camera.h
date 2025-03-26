@@ -22,6 +22,8 @@ private:
 	float m_cameraHAngle;		//横回転
 	float m_cameraVAngle;		//縦回転
 
+	bool m_isDisplayMouse;		//マウスカーソルの表示
+
 	void MouseCamera();
 
 protected:
@@ -34,7 +36,8 @@ public:
 		m_transform(nullptr),
 		m_lookAt(nullptr),
 		m_cameraHAngle(0),
-		m_cameraVAngle(21)
+		m_cameraVAngle(21),
+		m_isDisplayMouse(false)
 	{
 		m_transform = new Transform();
 	}

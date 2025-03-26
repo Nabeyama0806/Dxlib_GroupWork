@@ -5,6 +5,7 @@
 //更新
 void Camera::Update()
 {
+	// カメラの視点移動
 	MouseCamera();
 	/*
 	//方向キーでカメラの操作
@@ -65,6 +66,7 @@ void Camera::Draw()
 void Camera::MouseCamera()
 {
 	//マウスでカメラの操作
+	Input::GetInstance()->SetMouseDispFlag(false);
 	Vector2 mousePos = Input::GetInstance()->GetMousePoint();
 	m_cameraHAngle -= (mousePos.x - 640) * CameraAngleSpeed;
 	m_cameraVAngle += (mousePos.y - 360) * CameraAngleSpeed;

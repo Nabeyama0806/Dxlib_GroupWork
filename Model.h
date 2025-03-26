@@ -11,6 +11,7 @@ public:
 	{
 		Idle,
 		Run,
+		Jump,
 
 		Length,
 	};
