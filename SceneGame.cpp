@@ -47,7 +47,7 @@ void SceneGame::Initialize()
 	m_mainCamera->SetlookAt(m_player);
 
 	// Ui(‰¼’u‚«)
-	//uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
+	uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
 
 	//BGM
 

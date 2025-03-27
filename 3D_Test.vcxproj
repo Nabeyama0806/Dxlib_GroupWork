@@ -69,11 +69,10 @@
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="SpriteActor.h" />
-    <ClInclude Include="UiAnimation.h" />
-    <ClInclude Include="UiTransform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

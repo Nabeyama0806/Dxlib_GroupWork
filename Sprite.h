@@ -1,14 +1,14 @@
 #pragma once
 #include "Vector2.h"
 #include "Transform.h"
-#include "UiAnimation.h"
+#include "SpriteAnimation.h"
 #include <map>	//文字れるの比較、連結
 
 class Sprite
 {
 private:
-	std::map<const char*, UiAnimation> m_uiAnimationList;//<アニメーション名：アニメーションデータ>の連想配列
-	const UiAnimation* m_runningAnime;	//再生中アニメーションリストへのポインタ
+	std::map<const char*, SpriteAnimation> m_spriteAnimationList;//<アニメーション名：アニメーションデータ>の連想配列
+	const SpriteAnimation* m_runningAnime;	//再生中アニメーションリストへのポインタ
 	float m_elapsedTime;	//経過時間(秒）
 
 public:
@@ -39,7 +39,7 @@ public:
 
 	//アニメーションの登録
 	void Register(const char* textureName);
-	void Register(const char* animeName, const UiAnimation& uiAnimation);
+	void Register(const char* animeName, const SpriteAnimation& spriteAnimation);
 
 	//アニメーションの再生
 	void Play(const char* animeName);

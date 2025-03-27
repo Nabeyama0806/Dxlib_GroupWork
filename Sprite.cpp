@@ -13,7 +13,7 @@ Sprite::~Sprite()
 void Sprite::Load()
 {
 	int firstTexture = 0;
-	for (auto& pair : m_uiAnimationList)
+	for (auto& pair : m_spriteAnimationList)
 	{
 		//リストから<アニメーション名：データ>のペアを取り出す
 		//pair.first : アニメーション名
@@ -39,12 +39,12 @@ void Sprite::Load()
 //リソースの開放
 void Sprite::Release()
 {
-	for (auto& pair : m_uiAnimationList)
+	for (auto& pair : m_spriteAnimationList)
 	{
 		ImageLoader::GetInstance()->Delete(pair.second.textureName);
 	}
 
-	m_uiAnimationList.clear();
+	m_spriteAnimationList.clear();
 	m_runningAnime = nullptr;
 }
 //更新
@@ -110,18 +110,18 @@ void Sprite::Draw(const Transform& transform)
 
 void Sprite::Register(const char* textureName)
 {
-	Register("-", UiAnimation(textureName, 1, 1, false));
+	Register("-", SpriteAnimation(textureName, 1, 1, false));
 
 }
 
-void Sprite::Register(const char* animeName, const UiAnimation& uiAnimetion)
+void Sprite::Register(const char* animeName, const SpriteAnimation& spriteAnimetion)
 {
-	m_uiAnimationList.emplace(animeName, uiAnimetion);
+	m_spriteAnimationList.emplace(animeName, spriteAnimetion);
 
 	//最初に登録されたアニメーションを再生中アニメーションとする
 	if (!m_runningAnime)
 	{
-		m_runningAnime = &m_uiAnimationList.begin()->second;
+		m_runningAnime = &m_spriteAnimationList.begin()->second;
 	}
 }
 
@@ -129,10 +129,10 @@ void Sprite::Register(const char* animeName, const UiAnimation& uiAnimetion)
 void Sprite::Play(const char* animeName)
 {
 	//指定されたアニメーションをリストから取得
-	const auto& pair = m_uiAnimationList.find(animeName);
+	const auto& pair = m_spriteAnimationList.find(animeName);
 
 	//未登録のアニメーション名
-	if (pair == m_uiAnimationList.end()) return;
+	if (pair == m_spriteAnimationList.end()) return;
 
 	//現在再生中のアニメーションと同じ
 	if (m_runningAnime == &pair->second) return;
