@@ -1,15 +1,18 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
+#include "Sprite.h"
 #include "Screen.h"
 #include "Input.h"
 #include "Node.h"
 #include "Actor.h"
+#include "UiActor.h"
 #include "Time.h"
 #include "Fade.h"
 #include "Camera.h"
 #include "Player.h"
 #include "ImageLoader.h"
 #include "ModelLoader.h"
+#include "tmpUi.h"
 #include "DxLib.h"
 
 //初期化
@@ -41,8 +44,14 @@ void SceneGame::Initialize()
 
 	//プレイヤー
 	m_player = new Player(m_mainCamera);
-	m_rootNode->AddChild(m_player);
+	actorLayer->AddChild(m_player);
 	m_mainCamera->SetlookAt(m_player);
+
+
+
+
+	// Ui(仮置き)
+	uiLayer->AddChild(new tmpUi());
 
 	//BGM
 

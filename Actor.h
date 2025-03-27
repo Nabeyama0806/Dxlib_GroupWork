@@ -4,6 +4,7 @@
 #include <string>
 
 class Model;
+class Sprite;
 
 class Actor : public Node
 {
@@ -11,6 +12,7 @@ protected:
 	std::string m_name;					//オブジェクト名
 	Transform m_transform;				//姿勢情報
 	Model* m_model;
+	Sprite* m_sprite;
 
 	virtual void Load() override;		//リソースの読み込み
 	virtual void Release() override;	//リソースの解放
@@ -46,8 +48,8 @@ public:
 	}
 
 	//衝突イベント
-	virtual void OnCollision(const Actor* other)
+/*	virtual void OnCollision(const Actor* other)
 	{
 		//何もしない
-	}
+	}*/
 };

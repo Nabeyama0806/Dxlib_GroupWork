@@ -38,7 +38,10 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneResult.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="tmpUi.cpp" />
+    <ClCompile Include="UiActor.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
@@ -65,8 +68,13 @@
     <ClInclude Include="SceneResult.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="tmpUi.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UiActor.h" />
+    <ClInclude Include="UiAnimation.h" />
+    <ClInclude Include="UiTransform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

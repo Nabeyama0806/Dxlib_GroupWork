@@ -69,4 +69,9 @@ public:
 	{
 		return Vector3::Cross(Vector3(0, 1, 0), GetForward()).Normalized();
 	}
+
+	Vector3 GetCameraPos() const
+	{
+		return m_cameraPos;
+	}
 };
