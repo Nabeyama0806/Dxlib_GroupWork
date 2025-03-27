@@ -8,29 +8,6 @@ void Camera::Update()
 {
 	// カメラの視点移動
 	MouseCamera();
-	/*
-	//方向キーでカメラの操作
-	if (CheckHitKey(KEY_INPUT_RIGHT) == 1)
-	{
-		m_cameraHAngle -= CameraAngleSpeed;
-		if (m_cameraHAngle >= 180.0f) m_cameraHAngle -= 360.0f;
-	}
-	if (CheckHitKey(KEY_INPUT_LEFT) == 1)
-	{
-		m_cameraHAngle += CameraAngleSpeed;
-		if (m_cameraHAngle <= -180.0f) m_cameraHAngle += 360.0f;
-	}
-	if (CheckHitKey(KEY_INPUT_UP) == 1)
-	{
-		m_cameraVAngle += CameraAngleSpeed;
-		if (m_cameraVAngle >= 80.0f) m_cameraVAngle = 80.0f;
-	}
-	if (CheckHitKey(KEY_INPUT_DOWN) == 1)
-	{
-		m_cameraVAngle -= CameraAngleSpeed;
-		if (m_cameraVAngle <= 0.0f) m_cameraVAngle = 0.0f;
-	}
-	*/
 
 	Vector3 tempPosition1;
 	Vector3 tempPosition2;

@@ -3,7 +3,6 @@
 #include "DxLib.h"
 #include "Input.h"
 #include "Screen.h"
-#include "Actor.h"
 
 //‰Šú‰»
 void SceneTitle::Initialize()

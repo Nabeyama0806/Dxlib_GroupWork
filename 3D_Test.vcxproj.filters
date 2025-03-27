@@ -31,6 +31,12 @@
     <Filter Include="ソース ファイル\Utility">
       <UniqueIdentifier>{7e121b70-0b96-4325-9c1b-98d686ca9711}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Actor">
+      <UniqueIdentifier>{21fa3d3d-1eed-4e89-a05e-57739f642991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor">
+      <UniqueIdentifier>{9d85daee-493d-48fe-b742-d9bc3ff2fb8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -61,9 +67,6 @@
       <Filter>ソース ファイル\Loader</Filter>
     </ClCompile>
     <ClCompile Include="GameMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
@@ -99,14 +102,14 @@
     <ClCompile Include="Quaternion.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="UiActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="tmpUi.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ModelActor.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,9 +144,6 @@
       <Filter>ヘッダー ファイル\Loader</Filter>
     </ClInclude>
     <ClInclude Include="GameMain.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
@@ -188,19 +188,19 @@
     <ClInclude Include="Math.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="UiTransform.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="UiActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="UiAnimation.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ActorBase.h">
+      <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="tmpUi.h">
+    <ClInclude Include="ModelActor.h">
+      <Filter>ヘッダー ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>ヘッダー ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

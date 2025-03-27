@@ -1,6 +1,6 @@
 #pragma once
 #include "DxLib.h"
-#include "Actor.h"
+#include "ModelActor.h"
 #include <vector>
 
 class Transform;

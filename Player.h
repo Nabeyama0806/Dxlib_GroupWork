@@ -1,5 +1,5 @@
 #pragma once
-#include "Actor.h"
+#include "ModelActor.h"
 #include "Model.h"
 #include "Vector3.h"
 #include "Camera.h"
@@ -7,7 +7,7 @@
 
 class Camera;
 
-class Player : public Actor
+class Player : public ModelActor
 {
 private:
 	static constexpr Vector3 SpawnOffset = Vector3(0, 0, 400);	//äJénéûÇÃç¿ïW

@@ -1,12 +1,13 @@
-#include "UiActor.h"
+#include "SpriteActor.h"
+#include "Sprite.h"
 
 //コンストラクタ
-UiActor::UiActor(const char* name, const char* textureName, const Vector2& position) :
-	m_name(name),
-	m_sprite(nullptr),
-	m_collider(nullptr)
+SpriteActor::SpriteActor(const char* name, const char* textureName, const Vector3& position) :
+	ActorBase(name, textureName, position),
+	m_sprite(nullptr)
 {
-	m_uiTransform.position = position;
+	m_name = name;
+	m_transform.position = position;
 
 	//画像が設定されていればスプライトを起動
 	if (textureName)
@@ -15,8 +16,9 @@ UiActor::UiActor(const char* name, const char* textureName, const Vector2& posit
 		m_sprite->Register(textureName);
 	}
 }
+
 //リソースの読み込み
-void UiActor::Load()
+void SpriteActor::Load()
 {
 	if (m_sprite)
 	{
@@ -26,7 +28,7 @@ void UiActor::Load()
 }
 
 //リソースの解放
-void UiActor::Release()
+void SpriteActor::Release()
 {
 	if (m_sprite)
 	{
@@ -36,16 +38,16 @@ void UiActor::Release()
 }
 
 //描画
-void UiActor::Draw()
+void SpriteActor::Draw()
 {
 	if (m_sprite)
 	{
-		m_sprite->Draw(m_uiTransform);
+		m_sprite->Draw(m_transform);
 	}
 }
 
 //子ノードを含む更新
-void UiActor::TreeUpdate()
+void SpriteActor::TreeUpdate()
 {
 	//Node本来のTreeUpdate
 	Node::TreeUpdate();
