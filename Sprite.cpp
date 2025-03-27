@@ -65,7 +65,7 @@ void Sprite::Update()
 }
 
 //ï`âÊ
-void Sprite::Draw(const UiTransform& uiTransform)
+void Sprite::Draw(const Transform& transform)
 {
 	//çƒê∂Ç∑ÇÈÇ‡ÇÃÇ™Ç»ÇØÇÍÇŒâΩÇ‡ÇµÇ»Ç¢
 	if (!m_runningAnime) return;
@@ -83,11 +83,11 @@ void Sprite::Draw(const UiTransform& uiTransform)
 	}
 	//ï`âÊ
 	DrawRectRotaGraph(
-		static_cast<int>(uiTransform.position.x), static_cast<int>(uiTransform.position.y),
+		static_cast<int>(transform.position.x), static_cast<int>(transform.position.y),
 		static_cast<int>(gridSize.x) * gridIndex, 0,
 		static_cast<int>(gridSize.x), static_cast<int>(gridSize.y),
-		uiTransform.scale,
-		uiTransform.angle,
+		transform.scale.x,
+		transform.rotation.x,
 		m_runningAnime->textureId,
 		false,
 		flipX, flipY
@@ -96,13 +96,13 @@ void Sprite::Draw(const UiTransform& uiTransform)
 #ifdef _DEBUG
 
 	//ÉOÉäÉbÉhògÇÃï\é¶
-	DrawBox(
-		static_cast<int>(uiTransform.position.x - gridSize.x * uiTransform.scale / 2),
-		static_cast<int>(uiTransform.position.y - gridSize.y * uiTransform.scale / 2),
-		static_cast<int>(uiTransform.position.x + gridSize.x * uiTransform.scale / 2),
-		static_cast<int>(uiTransform.position.y + gridSize.y * uiTransform.scale / 2),
+	/*DrawBox(
+		static_cast<int>(transform.position.x - gridSize.x * transform.scale / 2),
+		static_cast<int>(transform.position.y - gridSize.y * transform.scale / 2),
+		static_cast<int>(transform.position.x + gridSize.x * transform.scale / 2),
+		static_cast<int>(transform.position.y + gridSize.y * transform.scale / 2),
 		GetColor(255, 0, 0), false
-	);
+	);*/
 #endif // _DEBUG2
 }
 

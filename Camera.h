@@ -3,7 +3,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
 #include "Transform.h"
-#include "Actor.h"
+#include "ModelActor.h"
 
 class Camera : public Node
 {
@@ -16,7 +16,7 @@ private:
 	static constexpr float CameraMinVAngle = 2.0f;	//カメラの縦回転の最小値
 
 	Transform* m_transform;		//姿勢情報
-	Actor* m_lookAt;			//注視するオブジェクト
+	ModelActor* m_lookAt;		//注視するオブジェクト
 	Vector3 m_targetPos;		//注視点座標
 	Vector3 m_cameraPos;		//カメラ座標
 	Vector3 m_cameraAngle;		//カメラ角度
@@ -45,7 +45,7 @@ public:
 	}
 
 	//注視点の取得
-	void SetlookAt(Actor* actor)
+	void SetlookAt(ModelActor* actor)
 	{
 		m_lookAt = actor;
 	}

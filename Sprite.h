@@ -1,6 +1,6 @@
 #pragma once
 #include "Vector2.h"
-#include "UiTransform.h"
+#include "Transform.h"
 #include "UiAnimation.h"
 #include <map>	//文字れるの比較、連結
 
@@ -35,7 +35,7 @@ public:
 	void Update();
 
 	//描画
-	void Draw(const UiTransform& uiTransform);
+	void Draw(const Transform& transform);
 
 	//アニメーションの登録
 	void Register(const char* textureName);

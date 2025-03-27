@@ -7,7 +7,7 @@
 
 //コンストラクタ
 Player::Player(Camera* camera) :
-	Actor("Player"),
+	ModelActor("Player"),
 	m_camera(camera)
 {
 	//アニメーションの登録
@@ -27,7 +27,7 @@ Player::Player(Camera* camera) :
 void Player::Update()
 {
 	//本来の更新
-	Actor::Update();
+	ModelActor::Update();
 
 	//入力方向の取得
 	Vector3 move = Vector3(0, 0, 0);
@@ -70,5 +70,5 @@ void Player::Update()
 
 void Player::Draw()
 {
-	Actor::Draw();
+	ModelActor::Draw();
 }

@@ -1,11 +1,12 @@
-#include "Actor.h"
+#include "ModelActor.h"
 #include "Model.h"
 #include "Animation.h"
 
 //コンストラクタ
-Actor::Actor(const char* name, const char* modelFileName, const Vector3& position) :
-	m_name(name),
-	m_model(nullptr)
+ModelActor::ModelActor(const char* name, const char* modelFileName, const Vector3& position) :
+	ActorBase(name, modelFileName, position), 
+	m_model(nullptr),
+	m_collider(nullptr)
 {
 	//ファイルパスが指定されていればロードする
 	if (modelFileName)
@@ -15,7 +16,7 @@ Actor::Actor(const char* name, const char* modelFileName, const Vector3& positio
 }
 
 //リソースの読み込み
-void Actor::Load()
+void ModelActor::Load()
 {
 	//モデル
 	if (m_model)
@@ -27,7 +28,7 @@ void Actor::Load()
 }
 
 //リソースの解放
-void Actor::Release()
+void ModelActor::Release()
 {
 	//モデル
 	if (m_model)
@@ -40,7 +41,7 @@ void Actor::Release()
 }
 
 //描画
-void Actor::Draw()
+void ModelActor::Draw()
 {
 	//モデル
 	if (m_model)
@@ -51,7 +52,7 @@ void Actor::Draw()
 }
 
 //子ノードを含む更新
-void Actor::TreeUpdate()
+void ModelActor::TreeUpdate()
 {
 	//本来のUpdate
 	Node::TreeUpdate();
@@ -61,5 +62,4 @@ void Actor::TreeUpdate()
 	{
 		m_model->Update();
 	}
-	
 }

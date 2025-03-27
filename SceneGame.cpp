@@ -4,15 +4,14 @@
 #include "Screen.h"
 #include "Input.h"
 #include "Node.h"
-#include "Actor.h"
-#include "UiActor.h"
+#include "ModelActor.h"
+#include "SpriteActor.h"
 #include "Time.h"
 #include "Fade.h"
 #include "Camera.h"
 #include "Player.h"
 #include "ImageLoader.h"
 #include "ModelLoader.h"
-#include "tmpUi.h"
 #include "DxLib.h"
 
 //初期化
@@ -32,7 +31,7 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(m_mainCamera);
 
 	//背景
-	m_rootNode->AddChild(new Actor("Ground", "Environment/Environment.mv1"));
+	m_rootNode->AddChild(new ModelActor("Ground", "Environment/Environment.mv1"));
 
 	//アクターレイヤー
 	Node* actorLayer = new Node();
@@ -47,11 +46,8 @@ void SceneGame::Initialize()
 	actorLayer->AddChild(m_player);
 	m_mainCamera->SetlookAt(m_player);
 
-
-
-
 	// Ui(仮置き)
-	uiLayer->AddChild(new tmpUi());
+	//uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
 
 	//BGM
 
