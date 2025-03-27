@@ -2,11 +2,13 @@
 #include "GameConfig.h"
 #include "Screen.h"
 #include "SceneManager.h"
+#include "SceneTitle.h"
 #include "SceneGame.h"
+#include "ImageLoader.h"
+#include "ModelActorCollision.h"
+#include "Fade.h"
 #include "Input.h"
 #include "Time.h"
-#include "Fade.h"
-#include "ImageLoader.h"
 #include "DxLib.h"
 
 //デストラクタ
@@ -61,6 +63,9 @@ void GameMain::Run()
 
 		//シーンの更新
 		m_sceneManager->Updeta();
+
+		//衝突判定の更新
+		ModelActorCollision::GetInstance()->Update();
 
 		//自作スクリーンに描画
 		SetDrawScreen(m_screen);

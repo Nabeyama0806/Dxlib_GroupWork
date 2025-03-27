@@ -28,7 +28,7 @@ public:
 	virtual void TreeUpdate() override = 0;
 
 	//p¨‚Ìæ“¾
-	const Transform& GetUiTransform() const
+	const Transform& GetTransform() const
 	{
 		return m_transform;
 	}

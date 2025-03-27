@@ -1,11 +1,11 @@
-#include "Animation.h"
+#include "ModelAnimation.h"
 #include "ModelLoader.h"
 #include "Transform.h"
 #include "Lerp.h"
 #include "Time.h"
 
 //コンストラクタ
-Animation::Animation(const char* animeFileName, const bool isFarst) :
+ModelAnimation::ModelAnimation(const char* animeFileName, const bool isFarst) :
     m_animeFileName(animeFileName),
     m_modelHandle(0),
     m_attachIndex(0),
@@ -19,13 +19,13 @@ Animation::Animation(const char* animeFileName, const bool isFarst) :
 { 
 }
 
-Animation::~Animation()
+ModelAnimation::~ModelAnimation()
 {
     Release();
 }
 
 //リソースの読み込み
-void Animation::Load(const int modelHandle)
+void ModelAnimation::Load(const int modelHandle)
 {
     //モデルの識別番号を取得
     m_modelHandle = modelHandle;
@@ -45,14 +45,14 @@ void Animation::Load(const int modelHandle)
 }
 
 //リソースの解放
-void Animation::Release()
+void ModelAnimation::Release()
 {
     //アニメーションの削除
     ModelLoader::GetInstance()->Delete(m_animeFileName);
 }
 
 //更新
-void Animation::Update()
+void ModelAnimation::Update()
 {
     //再生時間が総アニメ時間を超えると再生時間を0にしてアニメーションをループさせる
     m_animeTime += Time::GetInstance()->GetDeltaTime();

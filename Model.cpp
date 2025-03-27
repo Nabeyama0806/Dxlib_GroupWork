@@ -76,7 +76,7 @@ void Model::Draw(const Transform& transform)
 //アニメーション登録
 void Model::Register(const char* animeFileName)
 {
-	Animation* anime = new Animation(animeFileName, m_animeList.empty());
+	ModelAnimation* anime = new ModelAnimation(animeFileName, m_animeList.empty());
 
 	//リストに登録
 	m_animeList.push_back(anime);

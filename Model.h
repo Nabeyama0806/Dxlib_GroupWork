@@ -1,5 +1,5 @@
 #pragma once
-#include "Animation.h"
+#include "ModelAnimation.h"
 #include <vector>
 
 class Transform;
@@ -17,9 +17,9 @@ public:
 	};
 
 private:
-	std::vector<Animation*> m_animeList;	//アニメーション配列
-	Animation* m_prevAnime;					//以前のアニメ
-	Animation* m_nowAnime;					//現在のアニメ
+	std::vector<ModelAnimation*> m_animeList;	//アニメーション配列
+	ModelAnimation* m_prevAnime;					//以前のアニメ
+	ModelAnimation* m_nowAnime;					//現在のアニメ
 	float m_elapsedTime;					//経過時間(秒)
 	int m_modelHandle;						//モデルのID
 	const char* m_modelFileName;			//モデルのファイルパス

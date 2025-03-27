@@ -19,8 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ModelActor.cpp" />
-    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ModelActorCollision.cpp" />
+    <ClCompile Include="ModelAnimation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameMain.cpp" />
@@ -45,9 +47,15 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="CircleCollider.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="HitBox.h" />
     <ClInclude Include="ModelActor.h" />
     <ClInclude Include="ActorBase.h" />
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="ModelActorCollision.h" />
+    <ClInclude Include="ModelAnimation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameMain.h" />

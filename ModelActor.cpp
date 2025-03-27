@@ -1,6 +1,7 @@
 #include "ModelActor.h"
+#include "ModelAnimation.h"
+#include "ModelActorCollision.h"
 #include "Model.h"
-#include "Animation.h"
 
 //コンストラクタ
 ModelActor::ModelActor(const char* name, const char* modelFileName, const Vector3& position) :
@@ -25,6 +26,10 @@ void ModelActor::Load()
 	}
 
 	//衝突判定の追加
+	if (m_collider)
+	{
+		ModelActorCollision::GetInstance()->Register(this);
+	}
 }
 
 //リソースの解放
@@ -37,7 +42,13 @@ void ModelActor::Release()
 		m_model = nullptr;
 	}
 	
-	//衝突判定システムから除外する
+	//衝突判定から除外
+	if (m_collider)
+	{
+		ModelActorCollision::GetInstance()->Remove(this);
+		delete m_collider;
+		m_collider = nullptr;
+	}
 }
 
 //描画

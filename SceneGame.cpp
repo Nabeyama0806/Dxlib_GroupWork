@@ -1,17 +1,18 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
-#include "Sprite.h"
+#include "ModelLoader.h"
+#include "ImageLoader.h"
 #include "Screen.h"
+#include "Fade.h"
+#include "Time.h"
 #include "Input.h"
 #include "Node.h"
+#include "Sprite.h"
 #include "ModelActor.h"
 #include "SpriteActor.h"
-#include "Time.h"
-#include "Fade.h"
+#include "HitBox.h"
 #include "Camera.h"
 #include "Player.h"
-#include "ImageLoader.h"
-#include "ModelLoader.h"
 #include "DxLib.h"
 
 //‰Šú‰»
@@ -47,7 +48,17 @@ void SceneGame::Initialize()
 	m_mainCamera->SetlookAt(m_player);
 
 	// Ui(‰¼’u‚«)
-	uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
+	//uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
+
+	//•Ç
+	Vector3 pos	 = Vector3(0, 0, 600);
+	Vector3 size = Vector3(300, 300, 50);
+	actorLayer->AddChild(new HitBox(
+		"Wall",
+		pos,
+		size
+	));
+	actorLayer->AddChild(new ModelActor("Pos", "Man/Man.mv1", pos));
 
 	//BGM
 

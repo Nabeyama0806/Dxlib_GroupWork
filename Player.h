@@ -30,4 +30,7 @@ protected:
 public:
 	//コンストラクタ
 	Player(Camera* camera);
+
+	//衝突イベント
+	virtual void OnCollision(const ModelActor* other) override;
 };

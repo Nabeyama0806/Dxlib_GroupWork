@@ -2,8 +2,9 @@
 #include "Input.h"
 #include "Time.h"
 #include "Quaternion.h"
+#include "BoxCollider.h"
 #include "ModelLoader.h"
-#include "Animation.h"
+#include "ModelAnimation.h"
 
 //コンストラクタ
 Player::Player(Camera* camera) :
@@ -21,6 +22,9 @@ Player::Player(Camera* camera) :
 	//姿勢情報の調整
 	m_transform.position = SpawnOffset;
 	m_transform.scale = Scale;
+
+	//衝突判定
+	m_collider = new BoxCollider(m_transform.scale);
 }
 
 //更新
@@ -68,7 +72,18 @@ void Player::Update()
 	m_model->PlayAnime(animeIndex);
 }
 
+//描画
 void Player::Draw()
 {
 	ModelActor::Draw();
+}
+
+//衝突イベント
+void Player::OnCollision(const ModelActor* other)
+{
+	//壁
+	if (other->GetName() == "Wall")
+	{
+		Destroy();
+	}
 }

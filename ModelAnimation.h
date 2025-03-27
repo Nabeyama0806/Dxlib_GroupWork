@@ -1,11 +1,11 @@
 #pragma once
-#include "DxLib.h"
+#include "Dxlib.h"
 #include "ModelActor.h"
 #include <vector>
 
 class Transform;
 
-class Animation
+class ModelAnimation
 {
 private:
 	static constexpr int FPS = 60;					//フレームレート
@@ -27,10 +27,10 @@ private:
 	
 public:
 	//デストラクタ
-	virtual ~Animation();
+	virtual ~ModelAnimation();
 	
 	//コンストラクタ
-	Animation(const char* animeFileName, const bool isFast);
+	ModelAnimation(const char* animeFileName, const bool isFast);
 
 	//リソースの読み込み
 	void Load(const int modelHandle);

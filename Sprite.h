@@ -2,19 +2,19 @@
 #include "Vector2.h"
 #include "Transform.h"
 #include "SpriteAnimation.h"
-#include <map>	//文字れるの比較、連結
+#include <map>	//連想配列
 
 class Sprite
 {
 private:
 	std::map<const char*, SpriteAnimation> m_spriteAnimationList;//<アニメーション名：アニメーションデータ>の連想配列
 	const SpriteAnimation* m_runningAnime;	//再生中アニメーションリストへのポインタ
-	float m_elapsedTime;	//経過時間(秒）
+	float m_elapsedTime;					//経過時間(秒）
 
 public:
 	Vector2 gridSize;	//アニメーションのの幅、高さ
-	bool flipX;		//左右反転
-	bool flipY;		//上下反転
+	bool flipX;			//左右反転
+	bool flipY;			//上下反転
 
 	//コンストラクタ
 	Sprite() :
@@ -43,6 +43,7 @@ public:
 
 	//アニメーションの再生
 	void Play(const char* animeName);
+
 	//アニメーション1コマの描画時間を取得
 	float GetFrameTime()
 	{
@@ -54,6 +55,7 @@ public:
 	{
 		return m_runningAnime ? GetFrameTime() * m_runningAnime->gridAmount : 0.0f;
 	}
+
 	//アニメーションが終了したかどうか
 	bool IsFinishAnime()
 	{

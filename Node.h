@@ -5,8 +5,8 @@ class Node
 {
 private:
 	Node* m_parent;						//親のポインター
-	std::list<Node*>m_children;			//子のポインタリスト
-	std::list<Node*> m_removeChildren;	 //削除する子(予約)のポインタリスト
+	std::list<Node*> m_children;		//子のポインタリスト
+	std::list<Node*> m_removeChildren;	//削除する子(予約)のポインタリスト
 
 	bool m_isLoaded;					//Load関数を実行したかどうか
 	bool m_isDestroyed;					//Destroy関数を実行したかどうか
