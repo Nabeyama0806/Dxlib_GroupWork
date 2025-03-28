@@ -78,6 +78,7 @@ void GameMain::Run()
 
 #ifdef _DEBUG
 		//衝突形状の描画
+		ModelActorCollision::GetInstance()->Draw();
 
 		//画像ローダー
 		//ImageLoader::GetInstance()->Draw();

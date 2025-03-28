@@ -33,4 +33,6 @@ public:
 
 	//XV
 	void Update();
+	// •`‰æ
+	void Draw();
 };

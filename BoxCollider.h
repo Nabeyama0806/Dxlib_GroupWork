@@ -31,4 +31,19 @@ public:
 	{
 		return Collision::Check(transform1, this, transform2, collider);
 	}
+
+
+#ifdef _DEBUG
+	// •`‰æ
+	virtual void Draw(const Transform& transform) const override
+	{
+		DrawBox(
+			static_cast<int>(500),
+			static_cast<int>(300),
+			static_cast<int>(1000),
+			static_cast<int>(600),
+			GetColor(0, 255, 0), true
+		);
+	}
+#endif
 };

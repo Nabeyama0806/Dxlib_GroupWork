@@ -34,3 +34,15 @@ void ModelActorCollision::Update()
 		}
 	}
 }
+
+void ModelActorCollision::Draw()
+{
+	for (auto it = m_modelActorList.begin(); it != m_modelActorList.end(); ++it)
+	{
+		ModelActor* actor = *it;
+		if (actor->GetCollider())
+		{
+			actor->GetCollider()->Draw(actor->GetTransform());
+		}
+	}
+}
