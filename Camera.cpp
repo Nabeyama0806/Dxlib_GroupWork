@@ -7,7 +7,7 @@
 void Camera::Update()
 {
 	// ƒJƒƒ‰‚ÌŽ‹“_ˆÚ“®
-	if (!Input::GetInstance()->IsKeyPress(KEY_INPUT_LSHIFT)) MouseCamera();
+	if (!Input::GetInstance()->IsKeyPress(KEY_INPUT_RSHIFT)) MouseCamera();
 
 	Vector3 tempPosition1;
 	Vector3 tempPosition2;

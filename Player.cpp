@@ -20,10 +20,14 @@ Player::Player(Camera* camera) :
 	}
 
 	//Žp¨î•ñ‚Ì’²®
-	m_transform.position = SpawnOffset;
+	m_transform.position = SpawnPos;
 	m_transform.scale = Scale;
 
+	/*
+	Vector3 colliderScale = Vector3(100, 170, 100) * Scale.x;
 	//Õ“Ë”»’è
+	m_collider = new BoxCollider(colliderScale, Vector3(0,80,0) * Scale.x);
+	*/
 	m_collider = new BoxCollider(m_transform.scale);
 }
 
@@ -84,7 +88,6 @@ void Player::OnCollision(const ModelActor* other)
 	//•Ç
 	if (other->GetName() == "Wall")
 	{
-		m_camera->SetlookAt(nullptr);
-		Destroy();
+		m_transform.position = SpawnPos;
 	}
 }
