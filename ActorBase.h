@@ -44,4 +44,10 @@ public:
 	{
 		return m_name;
 	}
+
+	//‘å‚«‚³‚Ì•ÏX
+	void ChangeScale(float scale) 
+	{
+		m_transform.scale *= scale; 
+	}
 };

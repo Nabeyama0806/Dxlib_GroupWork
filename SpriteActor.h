@@ -24,6 +24,4 @@ public:
 
 	//子ノードを含む更新
 	virtual void TreeUpdate() override;
-
-	void ChangeScale(float scale) { m_transform.scale *= scale; }
 };

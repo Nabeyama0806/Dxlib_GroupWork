@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bottle.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ModelActor.cpp" />
     <ClCompile Include="ModelActorCollision.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bottle.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />

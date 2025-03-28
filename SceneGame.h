@@ -24,6 +24,7 @@ private:
 	Camera* m_mainCamera;	//プレイヤー
 	SpriteActor* m_tmpUi;	// 仮置きのUI
 
+
 	Vector3 cameraPos = Vector3(0, 0, -700);
 
 	float m_resultTransitionTime;

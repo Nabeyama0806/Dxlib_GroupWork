@@ -48,19 +48,23 @@ void SceneGame::Initialize()
 	m_mainCamera->SetlookAt(m_player);
 
 	// Ui(仮置き)
-	m_tmpUi = new SpriteActor("ui", "Resource/title.png", Screen::Center);
+	m_tmpUi = new SpriteActor("ui", "Resource/ポーション候補3.png", Screen::BottomLeft);
 	m_tmpUi->ChangeScale(0.1f);
 	uiLayer->AddChild(m_tmpUi);
 
 	//壁
-	Vector3 pos	 = Vector3(0, 0, 600);
-	Vector3 size = Vector3(300, 300, 50);
+	Vector3 pos	 = Vector3(0, 150, 1500);
+	Vector3 size = Vector3(300, 300, 300);
 	actorLayer->AddChild(new HitBox(
 		"Wall",
 		pos,
 		size
 	));
-	actorLayer->AddChild(new ModelActor("Pos", "Man/Man.mv1", pos));
+
+	//魔法瓶の表示
+	ModelActor* model = new ModelActor("kaminari", "Resource/kaminariポーション.mv1", pos);
+	model->ChangeScale(70);
+	actorLayer->AddChild(model);
 
 	//BGM
 
