@@ -47,5 +47,5 @@ public:
 	virtual void TreeDraw();	//子ノードを含む描画
 
 	void AddChild(Node* node);		//子ノードの追加
-	void RemoveChild(Node* node);	//子ノードの削除
+	void RemoveChild(Node* node);			//子ノードの削除
 };

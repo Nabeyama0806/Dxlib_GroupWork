@@ -48,7 +48,9 @@ void SceneGame::Initialize()
 	m_mainCamera->SetlookAt(m_player);
 
 	// Ui(‰¼’u‚«)
-	//uiLayer->AddChild(new SpriteActor("ui", "Resource/title.png", Screen::Center));
+	m_tmpUi = new SpriteActor("ui", "Resource/title.png", Screen::Center);
+	m_tmpUi->ChangeScale(0.1f);
+	uiLayer->AddChild(m_tmpUi);
 
 	//•Ç
 	Vector3 pos	 = Vector3(0, 0, 600);
