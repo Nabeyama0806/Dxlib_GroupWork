@@ -15,35 +15,15 @@ public:
 		Length
 	};
 
-	//モデル名
-	const char* ModelNames[static_cast<int>(Type::Length)] =
-	{
-		"Fire",
-		"Water",
-		"Thunder",
-		"Wind"
-	};
-
-	//モデルのファイルパス
-	const char* ModelFilePath[static_cast<int>(Type::Length)] =
-	{
-		"Resource/honouポーション.mv1",
-		"Resource/mizuポーション.mv1",
-		"Resource/kaminariポーション.mv1",
-		"Resource/kaminariポーション.mv1"
-	};
+	Type m_type;	//自身の属性
 
 private:
 	static constexpr float Gravity = 1.2f;	//重力
 
 protected:
-	virtual void Update() override;	//更新
-	virtual void Draw() override;	//描画
+	void Throw();
 
 public:
 	//コンストラクタ
-	Bottle(Vector3& position) :
-		ModelActor("Bottle", nullptr, position)
-	{
-	}
+	Bottle(Vector3& position);
 };

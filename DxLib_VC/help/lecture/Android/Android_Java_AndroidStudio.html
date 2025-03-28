@@ -1,0 +1,375 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-JP">
+	<HEAD>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <TITLE>ＤＸライブラリ Android版を使用した Androidアプリで Java のコードを実行する</TITLE>
+	<link rel="shortcut icon" href="../../DxLib.ico">
+	<link rel="stylesheet" href="../../style.css" type="text/css">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#0033CC" VLINK="#800040">
+	<div class="NormalFont">
+	<TABLE ALIGN="CENTER" WIDTH=1400  CELLSPACING=0 CELLPADDING=0 >
+		<TR>
+		<TD ALIGN="CENTER">
+		<FONT SIZE="6" COLOR="#000000"><B>
+			ＤＸライブラリ Android版を使用した Androidアプリで Java のコードを実行する<br>( Android Studio編 )
+		</B></FONT>
+		</TD></TR>
+		<TR><TD>
+		<HR>
+		<FONT SIZE="3" COLOR="#000000"><B>
+		<BR>
+
+		　すべての処理を C++ で実行できれば良いのですが、Android の基本言語が Java である関係で、<BR>
+		Java を使用しないと使うことができない機能が沢山あります。<BR><BR>
+
+		　なので、ここでは<FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>には無い<FONT COLOR="#880022">『文字列を入力するダイアログを表示して、入力された<BR>
+		文字列を取得する』</FONT>という処理を行うための手順を通じて<FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>を使用するアプリで<BR>
+		Java のコードを実行するための方法を記します。<BR><BR><BR>
+
+
+		　<A HREF="#R1">1.『AndroidManifest.xml』の内容を Java のコードを実行できるように変更する<BR><BR></A>
+
+		　<A HREF="#R2">2.Java のコードを入力する<BR><BR></A>
+
+		　<A HREF="#R3">3.Java の情報を取得する C++ のコードを入力する<BR><BR><BR><BR></A>
+
+
+		<A NAME="R1">
+		<FONT COLOR="#008800">
+		1.『AndroidManifest.xml』の内容を Java のコードを実行できるように変更する<BR><BR>
+		</FONT>
+		</A>
+
+		　　<FONT COLOR="#880022">Android Studio</FONT> で <FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>を使用する Androidアプリのプロジェクトを開き<BR>
+		　画面左側のリストの<FONT COLOR="#880022">『app』→『manifests』</FONT>の中にある<FONT COLOR="#880022">『AndroidManifest.xml』</FONT>を<BR>
+		　ダブルクリックして、内容を表示します。<BR><BR>
+
+		　　<FONT COLOR="#880022">『AndroidManifest.xml』</FONT>の内容は、<A HREF="../../use/dxuse_android_studio_4_0.html">使い方ページ</A>に沿って編集した場合は以下のようになっていると思いますが、<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dxlibtest_androidstudio"&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hasCode="false"&gt;
+        &lt;activity android:name="android.app.NativeActivity"&gt;
+            &lt;meta-data android:name="android.app.lib_name"
+                android:value="native-lib" /&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</pre>
+</FONT><B><BR>
+
+		　　この中の以下のように変更します。(色が緑の部分が変更箇所や追加箇所で、２箇所です)<BR>
+		
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dxlibtest_androidstudio"&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hasCode="<FONT COLOR="#008800">true</FONT>"&gt;
+        &lt;activity android:name="<FONT COLOR="#008800">.MainActivity</FONT>"&gt;
+            &lt;meta-data android:name="android.app.lib_name"
+                android:value="native-lib" /&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</pre>
+</FONT><B>
+		　<BR><BR><BR>
+
+		<A NAME="R2">
+		<FONT COLOR="#008800">
+		2.Java のコードを入力する<BR><BR>
+		</FONT>
+		</A>
+
+		　　Android Studio の画面左側のリストの<FONT COLOR="#880022">『app』→『java』</FONT>の中には使い方ページに沿ってプロジェクト名を<br>
+		　<FONT COLOR="#880022">『test』</FONT>にした場合は<FONT COLOR="#880022">『com.example.test』</FONT>があり、更にその中に<FONT COLOR="#880022">『MainActivity』</FONT>がありますので、<br>
+		　ダブルクリックして内容を表示すると最初から30行ほど書かれていますが、それを全部消して、代わりに<BR>
+		　今回の<FONT COLOR="#880022">『文字列を入力するダイアログを表示して、入力された文字列を取得する』</FONT>の処理を行うための<BR>
+		　以下のコードを入力します。
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+package com.example.<FONT COLOR="#880022">(プロジェクト名)</FONT>;
+
+import android.app.NativeActivity;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.view.View;
+import java.lang.Runnable;
+
+public class MainActivity extends NativeActivity
+{
+	NativeActivity AppActivity ;
+	EditText EditView ;
+	AlertDialog.Builder AlBuilder ;
+
+	<FONT COLOR="#008800">// 入力された文字列を保存するメンバー変数</FONT>
+	String InputString ;
+
+	<FONT COLOR="#008800">// 文字列の入力が終わったら 1 にするフラグ用変数</FONT>
+	int InputEnd ;
+
+	<FONT COLOR="#008800">// 文字列入力ダイアログを開始する</FONT>
+	public void StartInputStringDialog()
+	{
+		<FONT COLOR="#008800">// NativeActivity の参照をメンバー変数に保存しておく</FONT>
+		AppActivity = this ;
+
+		<FONT COLOR="#008800">// 文字列の入力が終わったら 1 にするフラグを 0 で初期化</FONT>
+		InputEnd = 0 ;
+
+		<FONT COLOR="#008800">// UIスレッドで実行する処理を登録する</FONT>
+		runOnUiThread( new Runnable ()
+		{
+			<FONT COLOR="#008800">// UIスレッドで呼ばれる関数</FONT>
+			@Override public void run()
+			{
+				<FONT COLOR="#008800">// 文字列入力の View を作成</FONT>
+				EditView = new EditText( AppActivity ) ;
+
+				<FONT COLOR="#008800">// ダイアログを作成</FONT>
+				AlBuilder = new AlertDialog.Builder( AppActivity ) ;
+
+				<FONT COLOR="#008800">// ダイアログのタイトルを設定</FONT>
+				AlBuilder.setTitle( "テキスト入力ダイアログ" ) ;
+
+				<FONT COLOR="#008800">// ダイアログに文字列の View をセット</FONT>
+				AlBuilder.setView( EditView ) ;
+
+				<FONT COLOR="#008800">// ダイアログに OK ボタンを追加</FONT>
+				AlBuilder.setPositiveButton( "OK", new DialogInterface.OnClickListener()
+				{
+					<FONT COLOR="#008800">// OK ボタンが押されたときに呼ばれる関数</FONT>
+					public void onClick( DialogInterface dialog, int whichButton )
+					{
+						<FONT COLOR="#008800">// 入力された文字列をメンバー変数に保存</FONT>
+						InputString = EditView.getText().toString() ;
+
+						<FONT COLOR="#008800">// 入力されたかどうかのフラグを立てる</FONT>
+						InputEnd = 1 ;
+
+						<FONT COLOR="#008800">// タイトルバーとナビゲーションバーを非表示にする処理</FONT>
+						View decor = AppActivity.getWindow().getDecorView() ;
+						decor.setSystemUiVisibility(
+							View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+							View.SYSTEM_UI_FLAG_LOW_PROFILE |
+							View.SYSTEM_UI_FLAG_FULLSCREEN |
+							View.SYSTEM_UI_FLAG_IMMERSIVE |
+							View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY );
+					}
+				});
+
+				<FONT COLOR="#008800">// ダイアログを表示</FONT>
+				AlBuilder.show() ;
+			}
+		}) ;
+	}
+}
+</pre>
+</FONT><B>
+		　( <FONT COLOR="#880022">(プロジェクト名)</FONT>となっている箇所は、お手元のプロジェクトの名前を入力してください )<BR><BR><BR><BR>
+
+
+		<A NAME="R3">
+		<FONT COLOR="#008800">
+		3.Java の情報を取得する C++ のコードを入力する<BR><BR>
+		</FONT>
+		</A>
+
+		　　次に Java の文字列入力を開始する関数を呼び出したり、入力された文字列を取得したりする C++ 側の<BR>
+		　プログラムです。<BR>
+		　　<FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>でのみ使用できる <FONT COLOR="#880022">GetNativeActivity</FONT> という関数を使用しています。<BR>
+
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+#include "DxLib.h"
+#include &lt;string.h&gt;
+
+int android_main( void )
+{
+	JNIEnv *env ;
+	const ANativeActivity *NativeActivity ;
+	int InputEnd ;
+	char InputString[ 1024 ] ;
+
+	<FONT COLOR="#008800">// 背景を灰色にする</FONT>
+	SetBackgroundColor( 128,128,128 ) ;
+
+	<FONT COLOR="#008800">// ＤＸライブラリの初期化</FONT>
+	if( DxLib_Init() < 0 ) return -1 ;
+
+	<FONT COLOR="#008800">// 描画先を裏画面に変更</FONT>
+	SetDrawScreen( DX_SCREEN_BACK ) ;
+
+	<FONT COLOR="#008800">// アプリの NativeActivity を取得しておく</FONT>
+	NativeActivity = GetNativeActivity() ;
+
+	<FONT COLOR="#008800">// Java の関数 StartInputStringDialog の呼び出し</FONT>
+	{
+		<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドを関連付け( C++ から Java の機能を使用するために必要 )</FONT>
+		if( NativeActivity->vm->AttachCurrentThreadAsDaemon( &env, NULL ) != JNI_OK )
+		{
+			return -1 ;
+		}
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity を取得</FONT>
+		jclass jclass_MainActivity = env->GetObjectClass( NativeActivity->clazz ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー関数 StartInputStringDialog の ID を取得</FONT>
+		jmethodID jmethodID_StartInputDialog = env->GetMethodID( jclass_MainActivity, "StartInputStringDialog", "()V" ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー関数 StartInputStringDialog の呼び出し</FONT>
+		env->CallVoidMethod( NativeActivity->clazz, jmethodID_StartInputDialog ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity の参照を削除</FONT>
+		env->DeleteLocalRef( jclass_MainActivity ) ;
+
+		<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドの関連付け終了</FONT>
+		NativeActivity->vm->DetachCurrentThread() ;
+	}
+
+	<FONT COLOR="#008800">// 入力が完了したかどうかのフラグを倒す</FONT>
+	InputEnd = 0 ;
+
+	<FONT COLOR="#008800">// メインループ</FONT>
+	while( ProcessMessage() == 0 )
+	{
+		<FONT COLOR="#008800">// 裏画面の内容をクリア</FONT>
+		ClearDrawScreen() ;
+
+		<FONT COLOR="#008800">// 入力が完了していなかったら Java のクラス MainActivity のメンバー変数 InputEnd と InputString の情報を取得する</FONT>
+		if( InputEnd == 0 )
+		{
+			<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドを関連付け( C++ から Java の機能を使用するために必要 )</FONT>
+			if( NativeActivity->vm->AttachCurrentThreadAsDaemon( &env, NULL ) != JNI_OK )
+			{
+				return -1 ;
+			}
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity を取得</FONT>
+			jclass jclass_MainActivity = env->GetObjectClass( NativeActivity->clazz ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputEnd の ID を取得</FONT>
+			jfieldID jfieldID_InputEnd = env->GetFieldID( jclass_MainActivity, "InputEnd", "I" ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputEnd の値をローカル変数 InputEnd に代入</FONT>
+			InputEnd = env->GetIntField( NativeActivity->clazz, jfieldID_InputEnd ) ;
+
+			<FONT COLOR="#008800">// InputEnd が 1 になっていたら入力が完了しているので InputString の値を取得する</FONT>
+			if( InputEnd == 1 )
+			{
+				<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputString の ID を取得</FONT>
+				jfieldID jfieldID_InputString = env->GetFieldID( jclass_MainActivity, "InputString", "Ljava/lang/String;" ) ;
+
+				<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputString の jstring オブジェクトを取得</FONT>
+				jstring jstring_InputString = ( jstring )env->GetObjectField( NativeActivity->clazz, jfieldID_InputString ) ;
+
+				<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputString の jstring から C++ 用の文字列のアドレスを取得</FONT>
+				const char *chars_InputString = env->GetStringUTFChars( jstring_InputString, NULL ) ;
+
+				<FONT COLOR="#008800">// 文字列をローカル変数 InputString にコピー</FONT>
+				strcpy( InputString, chars_InputString ) ;
+
+				<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputString の jstring から取得した C++ 用の文字列のアドレスを解放</FONT>
+				env->ReleaseStringUTFChars( jstring_InputString, chars_InputString ) ;
+
+				<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 InputString の jstring オブジェクトの参照を削除</FONT>
+				env->DeleteLocalRef( jstring_InputString ) ;
+			}
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity の参照を削除</FONT>
+			env->DeleteLocalRef( jclass_MainActivity ) ;
+
+			<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドの関連付け終了</FONT>
+			NativeActivity->vm->DetachCurrentThread() ;
+		}
+
+		<FONT COLOR="#008800">// InputEnd と InputString の状態を画面に描画</FONT>
+		DrawFormatString( 0, 100, GetColor( 255,255,255 ), "InputEnd:%d  InputString:%s", InputEnd, InputString ) ;
+
+		<FONT COLOR="#008800">// 裏画面の内容を表画面に反映</FONT>
+		ScreenFlip() ;
+	}
+
+	<FONT COLOR="#008800">// ＤＸライブラリの後始末</FONT>
+	DxLib_End();
+
+	<FONT COLOR="#008800">// ソフトの終了</FONT>
+	return 0;
+}
+</pre>
+</FONT><B>
+		　<BR><BR>
+
+		　　以上です。<BR>
+		　　これでプロジェクトを実行すると、起動と同時に文字列入力ダイアログが現われ、文字列を入力して OK ボタンを押すと<BR>
+		　画面に入力した文字列が表示されると思います。<BR><BR>
+
+		　　詳細は割愛しますが、C++ から Java にアクセスする基本的な流れは。<BR><BR>
+		
+		<FONT COLOR="#550088">
+		　　　①　AttachCurrentThreadAsDaemon でソフト実行用スレッドと JavaVM を関連付け、JNIEnv も取得。<BR><BR>
+
+		　　　②　GetObjectClass でアプリの Java クラスを取得。<BR><BR>
+
+		　　　③　GetMethodID や GetFieldID で Java の関数や変数の ID を取得。<BR><BR>
+
+		　　　④　Call???Method や Get???Field で Java の関数の呼び出しや変数の値を取得。<BR><BR>
+
+		　　　⑤　DeleteLocalRef で Get???Field で取得したオブジェクト系の変数の参照を削除。<BR><BR>
+
+		　　　⑥　DeleteLocalRef で GetObjectClass で取得したアプリの Java クラスの参照を削除。<BR><BR>
+
+		　　　⑦　DetachCurrentThread でソフト実行用スレッドと JavaVM の関連付けを終了。<BR><BR>
+		</FONT>
+
+		　　となります。<BR>
+		　　C++ と Java でのやり取りを行う機能( <FONT COLOR="#880022">JNI( Java Native Interface )</FONT> ) の詳しい扱い方については、検索サイトで<BR>
+		　『<FONT COLOR="#880022">Android Java JNI</FONT>』などのキーワードで検索して調べてみてください。<BR><BR><BR><BR><BR>
+
+
+		<HR>
+		<A HREF="../../dxtec.html">戻る</A>
+
+		</B></FONT>
+		</TD></TR>
+	</TABLE>
+	</div>
+	</BODY>
+</HTML>

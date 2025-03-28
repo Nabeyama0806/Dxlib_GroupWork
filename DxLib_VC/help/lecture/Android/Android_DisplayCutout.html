@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-JP">
+	<HEAD>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <TITLE>ＤＸライブラリ Android版を使用した Androidアプリでディスプレイカットアウトに対応する</TITLE>
+	<link rel="shortcut icon" href="../../DxLib.ico">
+	<link rel="stylesheet" href="../../style.css" type="text/css">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#0033CC" VLINK="#800040">
+	<div class="NormalFont">
+	<TABLE ALIGN="CENTER" WIDTH=1400  CELLSPACING=0 CELLPADDING=0 >
+		<TR>
+		<TD ALIGN="CENTER">
+		<FONT SIZE="6" COLOR="#000000"><B>
+			ＤＸライブラリ Android版を使用した Androidアプリでディスプレイカットアウトに対応する<br>( Android Studio編 )
+		</B></FONT>
+		</TD></TR>
+		<TR><TD>
+		<HR>
+		<FONT SIZE="3" COLOR="#000000"><B>
+		<BR>
+
+		　Android のスマートフォンには画面の左上や上部にフロントカメラがある場合があり、カメラがある部分は画像を表示することができません。<BR>
+		Androidアプリはデフォルトの設定ではカメラがある領域を含まない最大サイズの矩形領域をアプリ画面として使用するのですが、<BR>
+		Android Studio のプロジェクトの『app』→『res』→『values』→『themes』の中にある『themes.xml』に以下の一行を加えることで<br>
+		カメラがある領域も含めた全画面をアプリ画面として使用することができるようになります。<br>
+
+</B><FONT COLOR="#008800">
+<pre><div class="NormalFont">
+	&lt;item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1"&gt;shortEdges&lt;/item&gt;
+</pre>
+</FONT><B><BR>
+		( 追加する箇所は、&lt;style&gt;～&lt;/style&gt; で囲まれた中になります )<br><br>
+
+		尚、全画面に表示されるようにした場合は当然画面の端の一部はフロントカメラ隠れてしまうことになりますので、<br>
+		あまり画面の端の方にはアプリにとって重要な情報は表示しないようにする必要がありますので注意してください。<br><br>
+
+		また、以下の関数でカメラに隠れてしまう領域を取得することが出来ますので、<br>
+
+</B><FONT COLOR="#008800">
+<pre><div class="NormalFont">
+	// ディスプレイカットアウト領域の数を取得する
+	// 戻り値  -1:エラー   0以上：ディスプレイカットアウト領域の数
+	<FONT COLOR="#000000">int GetDisplayCutoutRectCount( void ) ;</FONT>
+
+	// ディスプレイカットアウト領域の矩形を取得する
+	// 引数 No : 取得するディスプレイカットアウト領域の番号
+	// 戻り値 : ディスプレイカットアウト領域の矩形
+	<FONT COLOR="#000000">RECT GetDisplayCutoutRect( int No ) ;</FONT>
+</pre>
+</FONT><B><BR>
+			
+		対応は少し大変かもしれませんが、重要な情報が GetDisplayCutoutRect で取得できる矩形と被ってしまっていたら<br>
+		重要な情報を表示する位置をディスプレイカットアウト領域に被らない位置に変更する、といった対処をすることもできます。<br><br>
+
+		※尚、ディスプレイカットアウト領域に関する設定を行ったり、GetDisplayCutoutRect などの関数を使用できるのは Android 9.0 以降になります<br><br>
+
+		<HR>
+		<A HREF="../../dxtec.html">戻る</A>
+
+		</B></FONT>
+		</TD></TR>
+	</TABLE>
+	</div>
+	</BODY>
+</HTML>

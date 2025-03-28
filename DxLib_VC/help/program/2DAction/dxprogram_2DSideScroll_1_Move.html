@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-JP">
+	<HEAD>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<TITLE>ＤＸライブラリ置き場　２Ｄ横スクロールアクションサンプルプログラム１</TITLE>
+	<link rel="shortcut icon" href="../DxLib.ico">
+	<link rel="stylesheet" href="../style.css" type="text/css">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#003388" VLINK="#800040">
+	<div class="NormalFont">
+		<FONT SIZE="6" COLOR="#000000"><B>
+		<CENTER>
+			２Ｄ横スクロールアクションサンプルプログラム１<BR>
+			プレイヤーキャラを左右に動かせるようにする
+		</CENTER>
+		</B></FONT>
+		<HR>
+		<IMG SRC="Movie/dxprogram_2DSideScroll_1_Move.gif" HSPACE="0" VSPACE="0">
+		<FONT SIZE="3" COLOR="#000000"><B>
+			<BR>
+			　画面の中心にプレイヤーキャラ( に、見立てた四角形 )を表示して、キーボードの左右キー( 又はゲームパッドの左右ボタン )で<br>
+			プレイヤーキャラを左右に動かせるようにしたプログラムです。<BR><br>
+</B>
+<PRE>
+#include "DxLib.h"
+
+// プレイヤーのX座標
+int PlayerX ;
+
+// エントリーポイント
+int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
+{
+	// ウインドウモードで起動
+	ChangeWindowMode( TRUE ) ;
+
+	// 画面解像度は 1280x720 に設定
+	SetGraphMode( 1280, 720, 32 ) ;
+
+	// ＤＸライブラリの初期化
+	if( DxLib_Init() < 0 ) return -1 ;
+
+	// プレイヤーのX座標を画面中心に初期化
+	PlayerX = 1280 / 2 ;
+
+	// 描画対象を裏画面に変更
+	SetDrawScreen( DX_SCREEN_BACK ) ;
+
+	// メインループ
+	while( ProcessMessage() == 0 )
+	{
+		// 画面をクリア
+		ClearDrawScreen() ;
+
+		// ゲームパッドとキーボードの入力を取得
+		int PadInput = GetJoypadInputState( DX_INPUT_KEY_PAD1 ) ;
+
+		// 左キー若しくは左ボタンが押されていたら座標を左に動かす
+		if( PadInput & PAD_INPUT_LEFT ) PlayerX -= 8 ;
+
+		// 右キー若しくは右ボタンが押されていたら座標を右に動かす
+		if( PadInput & PAD_INPUT_RIGHT ) PlayerX += 8 ;
+
+		// プレイヤーの位置に 32x32 の四角形を描画
+		DrawBox( PlayerX - 16, 720 / 2 - 16, PlayerX + 16, 720 / 2 + 16, GetColor( 255,255,255 ), TRUE ) ;
+
+		// 裏画面の内容を表画面に反映
+		ScreenFlip() ;
+	}
+
+	// ＤＸライブラリの後始末
+	DxLib_End() ;
+
+	// ソフトの終了
+	return 0 ;
+}
+</PRE>
+<B>
+			<HR>
+			<A HREF="dxprogram_2DSideScroll.html">戻る</A><BR><BR>
+		</B></FONT>
+	</div>
+	</BODY>
+</HTML>

@@ -1,0 +1,579 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-JP">
+	<HEAD>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <TITLE>ＤＸライブラリ置き場　使い方説明</TITLE>
+	<link rel="shortcut icon" href="../DxLib.ico">
+	<link rel="stylesheet" href="../style.css" type="text/css">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#0033CC" VLINK="#800040">
+	<div class="NormalFont">
+	<TABLE ALIGN="CENTER" WIDTH=1300  CELLSPACING=0 CELLPADDING=0 >
+		<TR>
+		<TD ALIGN="CENTER">
+		<FONT SIZE="4" COLOR="#000000"><B>
+			Android Studio による Androidアプリ開発でのＤＸライブラリの使い方
+		</B></FONT>
+		</TD></TR>
+		<TR><TD>
+		<HR>
+		<FONT SIZE="3" COLOR="#000000"><B>
+		<BR>
+
+		　Android Studio を使用してＤＸライブラリを使った Androidアプリを製作するには以下のような手順を踏みます。<BR><BR>
+
+		<A HREF="#R1">1.ＤＸライブラリを使うために必要なものを揃える<BR><BR></A>
+		<A HREF="#R2">2.プロジェクトの作成<BR><BR></A>
+		<A HREF="#R3">3.ＤＸライブラリを使用するためのプロジェクトの設定を行う<BR><BR></A>
+		<A HREF="#R4">4.プログラムを組む<BR><BR></A>
+		<A HREF="#R5">5.Androidエミュレーターの準備<BR><BR></A>
+		<A HREF="#R6">6.プロジェクトのビルド、実行<BR><BR><BR><BR></A>
+
+
+		<A NAME="R1">
+		<FONT COLOR="#008800">
+		1.ＤＸライブラリを使うために必要なものを揃える<BR><BR>
+		</FONT>
+		</A>
+
+		Android Studio でＤＸライブラリを使用して Androidアプリを製作するには以下のものが必要です。<BR><BR>
+
+		<FONT COLOR="#880022">
+　　　　・Android Studio<BR>
+　　　　・ＤＸライブラリ Android版<BR><BR>
+		</FONT>
+
+		　まず <FONT COLOR="#880022">Android Studio</FONT> は、プログラムをコンパイルして実行可能な Androidアプリを作成する為のメインとなるソフトです。<BR>
+		　こちらは Google の<A HREF="https://developer.android.com/studio?hl=ja"><B>こちらのページ</B></A>の <FONT COLOR="#880022">『Download Android Studio Electric Eel』</FONT>
+		と書かれている箇所をクリックすることで無償で入手することができますので、<BR>
+		ありがたくダウンロード＆インストールさせてもらって下さい。<BR>
+		インストールや初回起動で色々訊かれますが、初期設定のまま進めればOKです。<br><br>
+
+		　二つ目の <FONT COLOR="#880022">ＤＸライブラリ Android版</FONT>は本サイトの<A HREF="../dxdload.html">こちらのページ</A>からダウンロードすることができます。<BR>
+		これがないとＤＸライブラリを使うことができませんので、まだダウンロードされていない方は<BR>
+		『<FONT COLOR="#880022">ＤＸライブラリ Android版</FONT>』をダウンロードしておいてください。<BR><BR><BR><BR>
+
+
+
+		<A NAME="R2">
+		<FONT COLOR="#008800">
+		2.プロジェクトの作成<BR><BR>
+		</FONT>
+		</A>
+
+		　Androidアプリを開発するためのソフトの準備ができましたので、早速一つ簡単な Androidアプリを作ってみましょう。<BR>
+		　ここでは『画面の中心に四角形を表示する』という動作をするアプリを作る手順を記したいと思います。<BR>
+		　Android Studio で Androidアプリを作るにはまず『プロジェクト』を作成する必要があるので以下にその方法を記します。<BR><BR>
+
+		<FONT COLOR="#550088">
+　		　①　Android Studio の起動メニューで『New Project』をクリックして、<br>
+　		　　　『New Project』ダイアログを表示します。<br><br>
+
+　		　②　ダイアログ左側のタブから『Phone and Tablet』を選択した後、<br>
+　		　　　右側のプロジェクトの種類の表から『Native C++』を選択してから、<br>
+　		　　　ダイアログ右下の『Next』をクリックします。<br><br>
+
+　		　③　次にプロジェクトに関する設定を行う画面が表示されたら、最初にプロジェクトの名前を<br />
+　		　　　『Name』に入力します。ここでは仮に『test』とします。<br><br>
+
+　		　④　次にプロジェクトを作成するフォルダパスを『Save location』に入力します。<br><br>
+
+　		　⑤　次に『Language』を『Kotlin』から『Java』に変更します。<br><br>
+
+　		　⑥　最後に『Minimum SDK』を『API 26: Android 8.0 (Oreo)』に変更した後、『Next』をクリックします。<br><br>
+
+　		　⑦　次にC++関係の設定を行う画面が表示されたら特に設定は変更せずに『Finish』をクリックします。<br><br>
+
+　		　＜ここから先は初めてのプロジェクト作成の場合のみの手順です＞<br><br>
+
+　		　⑧　これでプロジェクトは作成され、プロジェクトウィンドウが画面に表示されますが、<br>
+　		　　　初回起動では暫く( 数分 )待っているとウィンドウの下側に<br>
+　		　　　『NDK not configured. Download it with SDK manager. Preferred NDK version is '21.0.6113669'.』<br>
+　		　　　のようなエラーが表示されますので、その下にある『Install NDK '21.0.6113669' and sync project』を<br>
+　		　　　クリックして NDK( Native Development Kit の略、C++ を使った Androidアプリの開発に必要なもの )<br>
+　		　　　をインストールしてください。<br>
+　		　　　　因みに、Android Studio はこのように必要なものが無かった場合、その都度『〇〇がありません、<br>
+　		　　　インストールしますか？』のように訊いてくるので、その場合は素直にインストールします。<br><br>
+		
+　		　⑨　NDK のインストールダイアログでは最初に『License Agreement』が表示され、下側の選択項目が『Decline』に<br>
+　		　　　なっていますので、こちらを『Accept』に変更してから『Next』をクリックするとインストールが開始されます。<br><br>
+
+　		　⑩　インストールが終了したらダイアログ右下の『Finish』をクリックしてダイアログを閉じます。<br><br>
+
+　		　⑪　NDK のインストールが終了するとプロジェクトのビルドが自動で開始されますので、<BR>
+　		　　　終了するまで数分待ちます。<br><br>
+		</FONT>
+
+		　これでプロジェクトの作成は完了です。<BR><BR><BR><BR>
+
+		<A NAME="R3">
+		<FONT COLOR="#008800">
+		3.ＤＸライブラリを使用するためのプロジェクトの設定を行う<BR><BR>
+		</FONT>
+		</A>
+
+		　プロジェクトを作成した後は以下の手順に沿ってプロジェクトでＤＸライブラリを使うための設定を行います。<BR><BR>
+
+		<FONT COLOR="#550088">
+	　　1.　まず Android Studio の画面の左側のリストから『app』→『manifests』の中にある『AndroidManifest.xml』を<br>
+	　　　　ダブルクリックして内容を表示します。<BR>
+	　　　　その内容は以下のようになっていると思いますが、<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Test"
+        tools:targetApi="31"&gt;
+        &lt;activity
+            android:name=".MainActivity"
+            android:exported="true"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+
+            &lt;meta-data
+                android:name="android.app.lib_name"
+                android:value="" /&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</pre>
+</FONT><B><br>
+
+	　　　　これを以下のように変更します。( 色が緑の部分が変更箇所や追加箇所で、meta-data の削除も含めて６箇所です )<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="<FONT COLOR="#008800">false</FONT>"
+        android:theme="@style/Theme.Test"
+        <FONT COLOR="#008800">android:hasCode="false"</FONT>
+        tools:targetApi="31"&gt;
+        &lt;activity
+            android:name="<FONT COLOR="#008800">android.app.NativeActivity</FONT>"
+            android:exported="true"&gt;
+            <FONT COLOR="#008800">&lt;meta-data android:name="android.app.lib_name"
+                android:value="native-lib" /&gt;</FONT>
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+        <FONT COLOR="#008800">&lt;provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove" /&gt;</FONT>
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+
+</pre>
+</FONT><B>
+			<br><br>
+	　　2.　次に画面左側のリストから『app』→『cpp』の中にある『CMakeLists.txt』を<br>
+	　　　　ダブルクリックして内容を表示します。<BR>
+	　　　　その内容は以下のようになっていると思いますが、<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+# For more information about using CMake with Android Studio, read the
+# documentation: https://d.android.com/studio/projects/add-native-code.html
+
+# Sets the minimum version of CMake required to build the native library.
+
+cmake_minimum_required(VERSION 3.18.1)
+
+# Declares and names the project.
+
+project("test")
+
+# Creates and names a library, sets it as either STATIC
+# or SHARED, and provides the relative paths to its source code.
+# You can define multiple libraries, and CMake builds them for you.
+# Gradle automatically packages shared libraries with your APK.
+
+add_library( # Sets the name of the library.
+        test
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        native-lib.cpp)
+
+# Searches for a specified prebuilt library and stores the path as a
+# variable. Because CMake includes system libraries in the search path by
+# default, you only need to specify the name of the public NDK library
+# you want to add. CMake verifies that the library exists before
+# completing its build.
+
+find_library( # Sets the name of the path variable.
+        log-lib
+
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        log)
+
+# Specifies libraries CMake should link to your target library. You
+# can link multiple libraries, such as libraries you define in this
+# build script, prebuilt third-party libraries, or system libraries.
+
+target_link_libraries( # Specifies the target library.
+        test
+
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})
+</pre>
+</FONT><B><br>
+
+	　　　　これを以下のように変更します。( 色が緑や赤の部分が変更箇所や追加箇所です )<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+# For more information about using CMake with Android Studio, read the
+# documentation: https://d.android.com/studio/projects/add-native-code.html
+
+# Sets the minimum version of CMake required to build the native library.
+
+cmake_minimum_required(VERSION 3.18.1)
+
+# Declares and names the project.
+
+<FONT COLOR="#008800">include_directories( <FONT COLOR="#880000">ＤＸライブラリAndroid版パッケージ内の『Lib_AndroidStudio』のフルパス</FONT>/${ANDROID_ABI} )
+link_directories( <FONT COLOR="#880000">ＤＸライブラリAndroid版パッケージ内の『Lib_AndroidStudio』のフルパス</FONT>/${ANDROID_ABI} )</FONT>
+
+project("test")
+
+# Creates and names a library, sets it as either STATIC
+# or SHARED, and provides the relative paths to its source code.
+# You can define multiple libraries, and CMake builds them for you.
+# Gradle automatically packages shared libraries with your APK.
+
+add_library( # Sets the name of the library.
+        <FONT COLOR="#008800">native-lib</FONT>
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        native-lib.cpp)
+
+# Searches for a specified prebuilt library and stores the path as a
+# variable. Because CMake includes system libraries in the search path by
+# default, you only need to specify the name of the public NDK library
+# you want to add. CMake verifies that the library exists before
+# completing its build.
+
+find_library( # Sets the name of the path variable.
+        log-lib
+
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        log)
+
+# Specifies libraries CMake should link to your target library. You
+# can link multiple libraries, such as libraries you define in this
+# build script, prebuilt third-party libraries, or system libraries.
+
+target_link_libraries( # Specifies the target library.
+        <FONT COLOR="#008800">native-lib</FONT>
+
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib}
+        <FONT COLOR="#008800">android
+        GLESv1_CM
+        EGL
+        GLESv2
+        OpenSLES
+        m
+        DxLib
+        DxUseCLib
+        jpeg
+        png
+        zlib
+        tiff
+        theora_static
+        vorbis_static
+        vorbisfile_static
+        ogg_static
+        bullet
+        opus</FONT> )
+</pre>
+</FONT><B>
+
+	　　　　『<FONT COLOR="#880000">ＤＸライブラリAndroid版パッケージ内の『Lib_AndroidStudio』のフルパス</FONT>』と<br>
+	　　　　書かれている部分は、ＤＸライブラリAndroid版パッケージ内のフォルダ『<FONT COLOR="#880000">Lib_AndroidStudio</FONT>』のパスに<br>
+	　　　　置き換えてください。( 更にディレクトリの区切りは \ ではなく / にする必要があります )<br>
+	　　　　例えばダウンロードした『ＤＸライブラリAndroid版』のパッケージを Cドライブの直下( C:\ )に展開した場合は<BR>
+	　　　　　　　　　　　　　 <FONT COLOR="#008800">C:\DxLib_Android\Lib_AndroidStudio</FONT><BR>
+	　　　　がフルパスとなりますので、その場合は include_directories と link_directories の2行の記述は
+
+</B><FONT COLOR="#008800">
+<pre><div class="NormalFont">
+include_directories( C:/DxLib_Android/Lib_AndroidStudio/${ANDROID_ABI} )
+link_directories( C:/DxLib_Android/Lib_AndroidStudio/${ANDROID_ABI} )
+</pre>
+</FONT><B><BR>
+			
+	　　　　となります。( \ を / に置き換えるのを忘れないようにしてください )<BR>
+	　　　　尚、ＤＸライブラリをダウンロードフォルダやドキュメントフォルダに入れるとこれらのパス指定が面倒になりますので<BR>
+	　　　　ＤＸライブラリはなるべく浅いフォルダに入れておくことをお勧めします。<BR><BR><BR><BR>
+
+	　　3.　次に画面左側のリストから『Gradle Scripts』の中にある『build.gradle (Module: (プロジェクト名).app)』を<br>
+	　　　　ダブルクリックして内容を表示します。<BR>
+	　　　　その内容は以下のようなものになっていると思いますが、<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.test"
+        minSdk 26
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.18.1'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+</pre>
+</FONT><B><br>
+
+	　　　　こちらの下から 5行目の 
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+</pre>
+</FONT><B><br>
+
+	　　　　こちらの行の下に以下の行を追加します。
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+    implementation "androidx.startup:startup-runtime:1.1.1"
+</pre>
+</FONT><B><br>
+
+	　　　　加えて、下から7行目の
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+</pre>
+</FONT><B><br>
+
+	　　　　こちらの行の 1.6.1 の箇所を 1.5.1 に変更します。
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+</pre>
+</FONT><B><br>
+
+	　　　　これらの変更を加えると、画面上部に<br>
+	　　　『Gradle files have changed since last project sync. A project sync may be necessary for the IDE to work properly.』<br>
+	　　　　という表示がされますので、その文章の右側にある『<FONT COLOR="#008800">Sync Now</FONT>』をクリックして、プロジェクトの同期を行います。<br><br><br>
+
+		</FONT>
+
+		　プロジェクトの設定は以上です。<BR><BR><BR><BR>
+
+		<A NAME="R4">
+		<FONT COLOR="#008800">
+		4.プログラムを組む<BR><BR>
+		</FONT>
+		</A>
+
+		　Android Studio の画面左側のリストの『app』→『cpp』の中にある『native-lib.cpp』をダブルクリックして内容を表示すると<BR>
+		最初から約10行のプログラムが書かれていますので、まずこれをすべて削除します。<BR><br>
+
+		　そして何もプログラムに書かれていない状態になった native-lib.cpp に、以下のプログラムを入力します。<BR>
+
+	<HR>
+<PRE><div class="NormalFont">#include "DxLib.h"
+
+// プログラムは android_main から始まります
+int android_main( void )
+{
+	if( DxLib_Init() == -1 )		// ＤＸライブラリ初期化処理
+	{
+		return -1 ;			// エラーが起きたら直ちに終了
+	}
+
+	DrawBox( 220, 140, 420, 340, GetColor( 255,255,255 ), TRUE ) ;	// 四角形を描画する
+
+	WaitKey() ;				// キー入力待ち
+
+	DxLib_End() ;				// ＤＸライブラリ使用の終了処理
+
+	return 0 ;					// ソフトの終了 
+}
+</div></PRE>
+	<HR><BR><BR>
+
+		　プログラムはこれだけです、どの部分が何をしているのか簡単に説明します。<BR>
+		　まず最初の１行はＤＸライブラリを使用するために必要なファイル( DxLib.h )をインクルードしています。<BR>
+		　次の<FONT COLOR="#880022">『int android_main( void )</FONT>はＤＸライブラリを使用した Androidアプリのプログラムのスタート地点となる関数の宣言です。<BR>
+		( 因みにＤＸライブラリを使用しない Androidアプリのスタート地点も android_main ですが、戻り値や引数が異なります… )<BR>
+		　中括弧内の最初の文<FONT COLOR="#880022">『if( DxLib_Init() == -1 ){ return -1 ; }』</FONT>はＤＸライブラリを初期化して使える状態にするために必要な関数<FONT COLOR="#880022">『DxLib_Init』</FONT>を呼んでいます。<BR>
+		この関数はＤＸライブラリを使うプログラムを組む際には例外を除いてまず最初に呼び出す必要があります。<BR>
+		因みに『if(...』と書かれているのは初期化が失敗したらその時点でソフトを終了させるという処理を行うための物です。<BR>
+		　<FONT COLOR="#880022">『DrawBox』</FONT>は関数名そのまま四角形を描画するための関数です。<BR>
+		　その次の<FONT COLOR="#880022">『WaitKey』</FONT>はキーボードのキーが押されるまで処理を止める関数です。( Androidアプリでもキーボードを接続すればキーボードを使うことができます )<BR>
+		　最後の<FONT COLOR="#880022">『DxLib_End() ;』</FONT>は注釈にも書いてある通りＤＸライブラリの使用を終了する処理を行う関数を呼んでいる文です。<BR>
+		ＤＸライブラリを使用しているプログラムは最後に必ずこの関数を呼ばなくてはなりません。<BR><BR><BR><BR>
+
+		<A NAME="R5">
+		<FONT COLOR="#008800">
+		5.Androidエミュレーターの準備<BR><BR>
+		</FONT>
+		</A>
+
+		　プログラムの入力も終わったので、早速実行！<BR>
+		　と、行きたいところですが、その前に『<FONT COLOR="#880022">Windows上で動作する Android端末のエミュレーター</FONT>』を用意する必要があります。<BR>
+		　Android のスマートフォンやタブレットを所持している場合は、その端末上で実行することもできるのですが<BR>
+		開発中は主に Androidエミュレーターでプログラムを実行することになるので、下記の手順を踏んでエミュレーターの準備を行います。<BR><BR>
+
+		<FONT COLOR="#550088">
+	　　①　Android Studio のメニューの『Tools』→『Device Manager』を選択して<BR>
+	　　　　『Device Manager』を表示します。<BR><BR>
+
+	　　②　最初は何もエミュレーターが作成されていない状態ですので、表示内の『Create Device』をクリックします。<BR><BR>
+
+	　　③　次に『Select Hardware』の画面が表示されますが、最初から作成するデバイスの設定がされていますので、<br>
+	　　　　特に変更はせずに『Next』をクリックします。<BR><BR>
+
+	　　④　次の『System Image』では作成するデバイスで使用する AndroidOS のイメージを選択するのですが、最初はイメージが一つも<br>
+	　　　　無い状態なので、リストの『API Level』が『28』となっている行の『Download』をクリックして、少し古めのシステムのイメージをダウンロードします。<br><br><br>
+
+	　　⑤　システムイメージダウンロードダイアログでは最初に『License Agreement』が表示され、下側の選択項目が『Decline』に<br>
+	　　　　なっていますので、こちらを『Accept』に変更してから『Next』をクリックするとダウンロード及びインストールが開始されます。<br><br>
+
+	　　⑥　システムイメージのダウンロードとインストールが完了したらダイアログ右下の『Finish』をクリックしてダイアログを閉じます。<BR><BR>
+
+	　　⑦　すると『System Image』の画面に戻り、且つリストの一番上の行が選択された状態になっていますので、<br>
+	　　　　そのままダイアログ右下側にある『Next』をクリックします。<BR><BR>
+
+	　　⑧　次の『Android Virtual Device (ADV)』の画面では仮想デバイス( エミュレーター )の名前などを変更できますが、<BR>
+	　　　　特に変更せずにダイアログ右下の『Finish』をクリックします。<BR><BR>
+
+	　　⑨　次に『Device Manager』の画面になり、作成したエミュレーターが追加されていますので、『Actions』の項目の下に<br>
+	　　　　表示されている右三角マーク( ▶ )をクリックしてエミュレーターを起動します。<br><br>
+
+	　　⑩　エミュレーターの起動には時間が掛かりますので暫く待ちます。<br><br>
+		</FONT>
+
+		　これで Androidエミュレーターの準備は完了です。<BR><BR><BR><BR>
+
+
+		<A NAME="R6">
+		<FONT COLOR="#008800">
+		6.プロジェクトのビルド、実行<BR><BR>
+		</FONT>
+		</A>
+
+		　エミュレーターの準備が完了したところで早速プログラムを実行してみましょう。<BR><BR>
+
+		<FONT COLOR="#550088">
+		　　①　Android Studio のメニューから『Build』→『Make Project』を選択して、プロジェクトをビルドします。<BR><BR>
+
+		　　②　ビルドが終了したら、次にメニューから『Run』→『Run 'app'』を選択します。<BR><BR>
+
+		　　③　エラーがなければプログラムが実行されます。<BR><BR>
+		</FONT>
+
+		　成功すれば、仮想デバイス( エミュレーター )の画面の中心に四角形が表示されます。<BR>
+
+		　さてできあがった Androidアプリのパッケージファイルですが、それはプロジェクトのフォルダの中の<BR>
+		『test\app\build\outputs\apk\debug』の中に『app-debug.apk』というファイル名で作成されます。<BR>
+		( プロジェクト名を『test』以外にした場合は、『test』の代わりに付けたプロジェクト名となります )<BR><BR>
+
+		この apk ファイルを Android端末にインストールすれば Android Studio を介さなくても作成したアプリが動作します。<BR>
+		( Android の Playストアに提出するファイルも、この apk ファイルとなります )<BR><BR>
+
+		　これでＤＸライブラリを使っての Androidアプリ開発の方法はわかりました。後は好きにプログラムを組んで<BR>
+		ゲームを作るだけです。ですがまだＤＸライブラリの機能は初期化と終了とドットを描画する関数しかわかっていません。<BR>
+		　この他の関数は <A HREF="../dxfunc.html">ＤＸライブラリ関数リファレンスのページ</A> で解説されていますのでそちらを参照して下さい。<BR><BR>
+
+		　あと、Androidアプリの開発に関する基礎的な情報や注意点を <A HREF="../lecture/Android/Android.html">Androidアプリ開発の基礎的な情報や注意点など</A> で<BR>
+		解説していますので、こちらも併せてご覧ください。<BR><BR><BR><BR>
+
+
+		<HR>
+		<A HREF="../dxuse.html">戻る</A>
+
+		</B></FONT>
+		</TD></TR>
+	</TABLE>
+	</div>
+	</BODY>
+</HTML>

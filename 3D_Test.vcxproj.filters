@@ -43,6 +43,12 @@
     <Filter Include="ソース ファイル\Collider">
       <UniqueIdentifier>{b0c7da73-08cb-4dcf-b5fd-64c2b9833550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Bottle">
+      <UniqueIdentifier>{a08e56cd-4d3f-4fa1-93f4-ee3611ce4d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Bottle">
+      <UniqueIdentifier>{9e3799d5-a1a1-4cdd-b458-1cc05ee1de34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -124,7 +130,7 @@
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Bottle.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
+      <Filter>ソース ファイル\Bottle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -237,7 +243,7 @@
       <Filter>ヘッダー ファイル\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Bottle.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
+      <Filter>ヘッダー ファイル\Bottle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

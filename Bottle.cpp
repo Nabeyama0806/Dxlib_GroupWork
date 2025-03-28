@@ -1,6 +1,9 @@
 #include "Bottle.h"
 
-void Bottle::Update()
+Bottle::Bottle(Vector3& position) :
+	ModelActor("Bottle", nullptr, position),
+	m_type(Bottle::Type::Fire)
 {
-	m_transform.position.y -= Gravity;
+
 }
+

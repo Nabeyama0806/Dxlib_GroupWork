@@ -53,7 +53,7 @@ void SceneGame::Initialize()
 	uiLayer->AddChild(m_tmpUi);
 
 	//•Ç
-	Vector3 pos	 = Vector3(0, 150, 1500);
+	Vector3 pos	 = Vector3(0, 100, 1500);
 	Vector3 size = Vector3(300, 300, 300);
 	actorLayer->AddChild(new HitBox(
 		"Wall",

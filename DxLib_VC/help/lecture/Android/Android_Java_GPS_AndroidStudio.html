@@ -1,0 +1,496 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja-JP">
+	<HEAD>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <TITLE>ＤＸライブラリ Android版を使用した Androidアプリで Java のコードで GPS を使用する</TITLE>
+	<link rel="shortcut icon" href="../../DxLib.ico">
+	<link rel="stylesheet" href="../../style.css" type="text/css">
+	</HEAD>
+	<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#0033CC" VLINK="#800040">
+	<div class="NormalFont">
+	<TABLE ALIGN="CENTER" WIDTH=1400  CELLSPACING=0 CELLPADDING=0 >
+		<TR>
+		<TD ALIGN="CENTER">
+		<FONT SIZE="6" COLOR="#000000"><B>
+			ＤＸライブラリ Android版を使用した Androidアプリで Java のコードで GPS を使用する<br>( Android Studio編 )
+		</B></FONT>
+		</TD></TR>
+		<TR><TD>
+		<HR>
+		<FONT SIZE="3" COLOR="#000000"><B>
+		<BR>
+
+		　すべての処理を C++ で実行できれば良いのですが、Android の基本言語が Java である関係で、<BR>
+		今のところ Java を使用しないと Android端末に搭載されている GPS を使用することができません。<BR><BR>
+
+		　なので、ここでは<FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>には無い GPS による位置情報の取得を Java を使用して<BR>
+		行うための手順を記します。<BR><BR><BR>
+
+
+		　<A HREF="#R1">1.『AndroidManifest.xml』の内容を GPS の使用と Java のコードを実行できるように変更する<BR><BR></A>
+
+		　<A HREF="#R2">2.Java のコードを入力する<BR><BR></A>
+
+		　<A HREF="#R3">3.Java の情報を取得する C++ のコードを入力する<BR><BR><BR><BR></A>
+
+
+		<A NAME="R1">
+		<FONT COLOR="#008800">
+		1.プロジェクトの設定と『『AndroidManifest.xml』の内容を GPS の使用と Java のコードを実行できるように変更する<BR><BR>
+		</FONT>
+		</A>
+
+		　　<FONT COLOR="#880022">Android Studio</FONT> で <FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>を使用する Androidアプリのプロジェクトを開き<BR>
+		　画面左側のリストの<FONT COLOR="#880022">『app』→『manifests』</FONT>の中にある<FONT COLOR="#880022">『AndroidManifest.xml』</FONT>を<BR>
+		　ダブルクリックして、内容を表示します。<BR><BR>
+
+		　　<FONT COLOR="#880022">『AndroidManifest.xml』</FONT>の内容は、<A HREF="../../use/dxuse_android_studio_4_0.html">使い方ページ</A>に沿って編集した場合は以下のようになっていると思いますが、<BR>
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dxlibtest_androidstudio"&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hasCode="false"&gt;
+        &lt;activity android:name="android.app.NativeActivity"&gt;
+            &lt;meta-data android:name="android.app.lib_name"
+                android:value="native-lib" /&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</pre>
+</FONT><B><BR>
+
+		　　この中の以下のように変更します。(色が緑の部分が変更箇所や追加箇所で、４箇所です)<BR>
+		
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dxlibtest_androidstudio"&gt;
+
+    <FONT COLOR="#008800">&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/&gt;</FONT>
+    <FONT COLOR="#008800">&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/&gt;</FONT>
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:hasCode="<FONT COLOR="#008800">true</FONT>"&gt;
+        &lt;activity android:name="<FONT COLOR="#008800">.MainActivity</FONT>"&gt;
+            &lt;meta-data android:name="android.app.lib_name"
+                android:value="native-lib" /&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</pre>
+</FONT><B>
+		　<BR><BR><BR>
+
+		<A NAME="R2">
+		<FONT COLOR="#008800">
+		2.Java のコードを入力する<BR><BR>
+		</FONT>
+		</A>
+
+		　　Android Studio の画面左側のリストの<FONT COLOR="#880022">『app』→『java』</FONT>の中には使い方ページに沿ってプロジェクト名を<br>
+		　<FONT COLOR="#880022">『test』</FONT>にした場合は<FONT COLOR="#880022">『com.example.test』</FONT>があり、更にその中に<FONT COLOR="#880022">『MainActivity』</FONT>がありますので、<br>
+		　ダブルクリックして内容を表示すると最初から30行ほど書かれていますが、それを全部消して、代わりに<BR>
+		　今回の<FONT COLOR="#880022">『GPS による位置情報の取得』</FONT>を行うための以下のコードを入力します。
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+package com.example.<FONT COLOR="#880022">(プロジェクト名)</FONT>;
+
+import android.app.NativeActivity;
+import android.os.Bundle;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.widget.Toast;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+public class MainActivity extends NativeActivity
+{
+	<FONT COLOR="#008800">// 緯度</FONT>
+	double mLatitude ;
+
+	<FONT COLOR="#008800">// 経度</FONT>
+	double mLongitude ;
+
+	<FONT COLOR="#008800">// 位置情報の状態( 0：使用可能かチェック中   1：使用可能   2：使用不可能 )</FONT>
+	int mGPSState ;
+
+	<FONT COLOR="#008800">// 使用するＧＰＳプロバイダ</FONT>
+	String mUseGPSProvider ;
+
+	<FONT COLOR="#008800">// 位置マネージャ</FONT>
+	LocationManager mLocationManager ;
+
+	<FONT COLOR="#008800">// 位置情報取得の権限をリクエストする際に使用する識別番号</FONT>
+	static final int PERMISSIONS_REQUEST_LOCATION = 1 ;
+
+	<FONT COLOR="#008800">// 位置マネージャの初期化を行う</FONT>
+	private void InitializeLocationManager()
+	{
+		<FONT COLOR="#008800">// 位置マネージャの取得</FONT>
+		mLocationManager = ( LocationManager )getSystemService( this.LOCATION_SERVICE ) ;
+
+		<FONT COLOR="#008800">// 使用するＧＰＳプロバイダの取得</FONT>
+
+		<FONT COLOR="#008800">// 端末のＧＰＳの位置情報が取得できる場合は端末のＧＰＳを使用</FONT>
+ 		Location location = mLocationManager.getLastKnownLocation( LocationManager.GPS_PROVIDER );
+ 		if( location != null )
+ 		{
+ 			mUseGPSProvider = LocationManager.GPS_PROVIDER;
+ 		}
+ 		else
+ 		{
+			<FONT COLOR="#008800">// ネットワークからの位置情報が取得できる場合はネットワークの位置情報を使用</FONT>
+ 			location = mLocationManager.getLastKnownLocation( LocationManager.NETWORK_PROVIDER );
+ 			if( location != null )
+ 			{
+ 				mUseGPSProvider = LocationManager.NETWORK_PROVIDER;
+ 			}
+ 			else
+ 			{
+				<FONT COLOR="#008800">// どちらからも位置情報が取得できない場合はＯＳに選択してもらう</FONT>
+				Criteria criteria = new Criteria() ;
+				criteria.setAccuracy( Criteria.ACCURACY_FINE ) ;		<FONT COLOR="#008800">// 位置精度優先</FONT>
+				mUseGPSProvider = mLocationManager.getBestProvider( criteria, true ) ;
+			}
+		}
+
+		<FONT COLOR="#008800">// 位置情報取得の開始</FONT>
+		mLocationManager.requestLocationUpdates(
+			mUseGPSProvider,
+			3000, <FONT COLOR="#008800">// 位置情報更新を行う最低更新時間間隔( 単位：ミリ秒 )</FONT>
+			0,    <FONT COLOR="#008800">// 位置情報更新を行う最小距離間隔（ 単位：メートル ）</FONT>
+			new LocationListener() 
+			{
+				<FONT COLOR="#008800">// 位置情報が更新されたときに呼ばれる関数</FONT>
+				@Override
+				public void onLocationChanged( Location location )
+				{
+					<FONT COLOR="#008800">// 位置情報取得権限のチェック</FONT>
+					if( ContextCompat.checkSelfPermission(
+							MainActivity.this,
+							Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+						ContextCompat.checkSelfPermission(
+							MainActivity.this,
+							Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED )
+					{
+						<FONT COLOR="#008800">// 位置情報取得の権限が無い場合は何もせずに終了</FONT>
+						return ;
+					}
+
+					<FONT COLOR="#008800">// ここに来たらＧＰＳが使用可能ということにする</FONT>
+					mGPSState = 1 ;
+
+					<FONT COLOR="#008800">// 経度と緯度を取得</FONT>
+ 					mLatitude  = location.getLatitude() ;
+ 					mLongitude = location.getLongitude() ;
+
+					<FONT COLOR="#008800">// 位置情報が更新された旨を表示</FONT>
+					Toast.makeText( MainActivity.this, "位置情報が更新されました", Toast.LENGTH_SHORT ).show() ;
+				}
+
+				<FONT COLOR="#008800">// 使用しているＧＰＳプロバイダが無効になった場合</FONT>
+				@Override
+				public void onProviderDisabled( String provider )
+				{
+					Toast.makeText( MainActivity.this, "ＧＰＳプロバイダが無効になりました", Toast.LENGTH_SHORT ).show() ;
+				}
+
+				<FONT COLOR="#008800">// 使用しているＧＰＳプロバイダが有効になった場合</FONT>
+				@Override
+				public void onProviderEnabled( String provider )
+				{
+					Toast.makeText( MainActivity.this, "ＧＰＳプロバイダが有効になりました", Toast.LENGTH_SHORT ).show() ;
+				}
+
+				<FONT COLOR="#008800">// 使用しているＧＰＳプロバイダの状態が変化した場合</FONT>
+				@Override
+				public void onStatusChanged(String provider, int status, Bundle extras) 
+				{
+					Toast.makeText( MainActivity.this, "ＧＰＳプロバイダの状態が変化しました", Toast.LENGTH_SHORT ).show() ;
+				}
+			}
+		);
+	}
+
+	<FONT COLOR="#008800">// 権限の許可を求めるダイアログで許可か不許可が選択されたら呼ばれる関数</FONT>
+	public void onRequestPermissionsResult( int requestCode, String[] permissions, int[] grantResults )
+	{
+		<FONT COLOR="#008800">// 位置情報取得の権限を求めるリクエストに対する結果の場合のみ処理を行う</FONT>
+		if( requestCode == PERMISSIONS_REQUEST_LOCATION )
+		{
+			<FONT COLOR="#008800">// 許可されたのかどうかを判定</FONT>
+			if( grantResults[ 0 ] == PackageManager.PERMISSION_GRANTED )
+			{
+				<FONT COLOR="#008800">// 許可されたら位置マネージャを初期化</FONT>
+				Toast.makeText( MainActivity.this, "位置情報取得が許可されました", Toast.LENGTH_SHORT ).show() ;
+				InitializeLocationManager() ;
+			}
+			else
+			{
+				<FONT COLOR="#008800">// 許可されなかったらその旨を表示する</FONT>
+				Toast.makeText( MainActivity.this, "位置情報取得が拒否されました", Toast.LENGTH_SHORT ).show() ;
+
+				<FONT COLOR="#008800">// ＧＰＳ使用不可の状態にする</FONT>
+				mGPSState = 2 ;
+			}
+		}
+	}
+
+	<FONT COLOR="#008800">// ＧＰＳの処理を開始する</FONT>
+	public void StartGPS()
+	{
+		<FONT COLOR="#008800">// UIスレッドで実行する処理を登録する</FONT>
+		runOnUiThread( 
+			new Runnable() 
+			{
+				<FONT COLOR="#008800">// UIスレッドで呼ばれる関数</FONT>
+				@Override public void run()
+				{
+					<FONT COLOR="#008800">// Android のバージョンチェック</FONT>
+					if( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M )
+					{
+						<FONT COLOR="#008800">// Android 6.0以上の場合はアプリ実行中に位置情報取得の権限があるかをチェックする</FONT>
+
+						<FONT COLOR="#008800">// 位置情報取得の権限があるか判定</FONT>
+						if( checkSelfPermission( Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED )
+						{
+							<FONT COLOR="#008800">// 位置情報取得の権限があれば位置マネージャを初期化</FONT>
+							Toast.makeText( MainActivity.this, "このアプリは位置情報取得の権限が既にあります", Toast.LENGTH_SHORT ).show() ;
+							InitializeLocationManager() ;
+						}
+						else
+						{
+							<FONT COLOR="#008800">// 位置情報取得の権限が無ければ権限を求めるダイアログを表示</FONT>
+							requestPermissions(
+								new String[]{ Manifest.permission.ACCESS_FINE_LOCATION },
+								PERMISSIONS_REQUEST_LOCATION
+							) ;
+						}
+					}
+					else
+					{
+						<FONT COLOR="#008800">// Android 6.0未満の場合はアプリ実行時には位置情報取得の権限が許可されているので</FONT>
+						<FONT COLOR="#008800">// 無条件で位置マネージャの初期化を行う</FONT>
+						InitializeLocationManager() ;
+					}
+				}
+			}
+		) ;
+	}
+}
+
+</pre>
+</FONT><B>
+		　( <FONT COLOR="#880022">(プロジェクト名)</FONT>となっている箇所は、お手元のプロジェクトの名前を入力してください )<BR><BR><BR><BR>
+
+
+		<A NAME="R3">
+		<FONT COLOR="#008800">
+		3.Java の情報を取得する C++ のコードを入力する<BR><BR>
+		</FONT>
+		</A>
+
+		　　次に Java の GPS の処理を開始する関数を呼び出したり、GPS の状態や GPS の緯度・経度を画面に表示したりする C++ 側のプログラムです。<BR>
+		　　<FONT COLOR="#880022">『ＤＸライブラリ Android版』</FONT>でのみ使用できる <FONT COLOR="#880022">GetNativeActivity</FONT> という関数を使用しています。<BR>
+
+
+</B><FONT COLOR="#000000">
+<pre><div class="NormalFont">
+#include "DxLib.h"
+#include &lt;string.h&gt;
+
+int android_main( void )
+{
+	JNIEnv *env ;
+	const ANativeActivity *NativeActivity ;
+	int Counter = 0 ;
+	double Latitude = 0.0 ;
+	double Longitude = 0.0 ;
+	int GPSState = 0 ;
+
+	<FONT COLOR="#008800">// 背景を灰色にする</FONT>
+	SetBackgroundColor( 128,128,128 ) ;
+
+	<FONT COLOR="#008800">// ＤＸライブラリの初期化</FONT>
+	if( DxLib_Init() < 0 ) return -1 ;
+
+	<FONT COLOR="#008800">// 描画先を裏画面に変更</FONT>
+	SetDrawScreen( DX_SCREEN_BACK ) ;
+
+	<FONT COLOR="#008800">// アプリの NativeActivity を取得しておく</FONT>
+	NativeActivity = GetNativeActivity() ;
+
+	<FONT COLOR="#008800">// Java の関数 StartGPS の呼び出し</FONT>
+	{
+		<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドを関連付け( C++ から Java の機能を使用するために必要 )</FONT>
+		if( NativeActivity->vm->AttachCurrentThreadAsDaemon( &env, NULL ) != JNI_OK )
+		{
+			return -1 ;
+		}
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity を取得</FONT>
+		jclass jclass_MainActivity = env->GetObjectClass( NativeActivity->clazz ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー関数 StartGPS の ID を取得</FONT>
+		jmethodID jmethodID_StartGPS = env->GetMethodID( jclass_MainActivity, "StartGPS", "()V" ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー関数 StartGPS の呼び出し</FONT>
+		env->CallVoidMethod( NativeActivity->clazz, jmethodID_StartGPS ) ;
+
+		<FONT COLOR="#008800">// Java のクラス MainActivity の参照を削除</FONT>
+		env->DeleteLocalRef( jclass_MainActivity ) ;
+
+		<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドの関連付け終了</FONT>
+		NativeActivity->vm->DetachCurrentThread() ;
+	}
+
+	<FONT COLOR="#008800">// メインループ</FONT>
+	while( ProcessMessage() == 0 )
+	{
+		<FONT COLOR="#008800">// 裏画面の内容をクリア</FONT>
+		ClearDrawScreen() ;
+
+		<FONT COLOR="#008800">// ＧＰＳの位置情報は頻繁には更新されないので、10フレームに１回の間隔で情報を更新する</FONT>
+		Counter ++ ;
+		if( Counter >= 10 )
+		{
+			<FONT COLOR="#008800">// カウンタをリセット</FONT>
+			Counter = 0 ;
+
+			<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドを関連付け( C++ から Java の機能を使用するために必要 )</FONT>
+			if( NativeActivity->vm->AttachCurrentThreadAsDaemon( &env, NULL ) != JNI_OK )
+			{
+				return -1 ;
+			}
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity を取得</FONT>
+			jclass jclass_MainActivity = env->GetObjectClass( NativeActivity->clazz ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mLatitude の ID を取得</FONT>
+			jfieldID jfieldID_mLatitude = env->GetFieldID( jclass_MainActivity, "mLatitude", "D" ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mLatitude の値をローカル変数 Latitude に代入</FONT>
+			Latitude = env->GetDoubleField( NativeActivity->clazz, jfieldID_mLatitude ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mLongitude の ID を取得</FONT>
+			jfieldID jfieldID_mLongitude = env->GetFieldID( jclass_MainActivity, "mLongitude", "D" ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mLongitude の値をローカル変数 Longitude に代入</FONT>
+			Longitude = env->GetDoubleField( NativeActivity->clazz, jfieldID_mLongitude ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mGPSState の ID を取得</FONT>
+			jfieldID jfieldID_mGPSState = env->GetFieldID( jclass_MainActivity, "mGPSState", "I" ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity のメンバー変数 mGPSState の値をローカル変数 GPSState に代入</FONT>
+			GPSState = env->GetIntField( NativeActivity->clazz, jfieldID_mGPSState ) ;
+
+			<FONT COLOR="#008800">// Java のクラス MainActivity の参照を削除</FONT>
+			env->DeleteLocalRef( jclass_MainActivity ) ;
+
+			<FONT COLOR="#008800">// JavaVM とソフト実行用スレッドの関連付け終了</FONT>
+			NativeActivity->vm->DetachCurrentThread() ;
+		}
+
+		<FONT COLOR="#008800">// GPSの状態によって画面に表示する内容を変更</FONT>
+		switch( GPSState )
+		{
+		case 0 :	<FONT COLOR="#008800">// ＧＰＳが使用可能かチェック中</FONT>
+			DrawString( 0,  80, "ＧＰＳが使用可能かチェック中", GetColor( 255,255,255 ) ) ;
+			break ;
+
+		case 1 :	<FONT COLOR="#008800">// ＧＰＳが使用可能</FONT>
+			DrawString( 0,  80, "ＧＰＳは使用可能", GetColor( 255,255,255 ) ) ;
+
+			<FONT COLOR="#008800">// 経度と緯度を画面に描画</FONT>
+			DrawFormatString( 0, 120, GetColor( 255,255,255 ), "経度　%f", Latitude ) ;
+			DrawFormatString( 0, 140, GetColor( 255,255,255 ), "緯度　%f", Longitude ) ;
+			break ;
+
+		case 2 :	<FONT COLOR="#008800">// ＧＰＳは使用不可能</FONT>
+			DrawString( 0,  80, "ＧＰＳは使用不可能", GetColor( 255,255,255 ) ) ;
+			break ;
+		}
+
+		<FONT COLOR="#008800">// 裏画面の内容を表画面に反映</FONT>
+		ScreenFlip() ;
+	}
+
+	<FONT COLOR="#008800">// ＤＸライブラリの後始末</FONT>
+	DxLib_End() ;
+
+	<FONT COLOR="#008800">// ソフトの終了</FONT>
+	return 0 ;
+}
+</pre>
+</FONT><B>
+		　<BR><BR>
+
+		　　以上です。<BR>
+		　　これでプロジェクトを実行すると、画面に GPS が使用可能かや、使用可能な場合は緯度・経度が表示されます。<BR><BR>
+
+		　　詳細は割愛しますが、C++ から Java にアクセスする基本的な流れは。<BR><BR>
+		
+		<FONT COLOR="#550088">
+		　　　①　AttachCurrentThreadAsDaemon でソフト実行用スレッドと JavaVM を関連付け、JNIEnv も取得。<BR><BR>
+
+		　　　②　GetObjectClass でアプリの Java クラスを取得。<BR><BR>
+
+		　　　③　GetMethodID や GetFieldID で Java の関数や変数の ID を取得。<BR><BR>
+
+		　　　④　Call???Method や Get???Field で Java の関数の呼び出しや変数の値を取得。<BR><BR>
+
+		　　　⑤　DeleteLocalRef で Get???Field で取得したオブジェクト系の変数の参照を削除。<BR><BR>
+
+		　　　⑥　DeleteLocalRef で GetObjectClass で取得したアプリの Java クラスの参照を削除。<BR><BR>
+
+		　　　⑦　DetachCurrentThread でソフト実行用スレッドと JavaVM の関連付けを終了。<BR><BR>
+		</FONT>
+
+		　　となります。<BR>
+		　　C++ と Java でのやり取りを行う機能( <FONT COLOR="#880022">JNI( Java Native Interface )</FONT> ) の詳しい扱い方については、検索サイトで<BR>
+		　『<FONT COLOR="#880022">Android Java JNI</FONT>』などのキーワードで検索して調べてみてください。<BR><BR><BR><BR><BR>
+
+
+		<HR>
+		<A HREF="../../dxtec.html">戻る</A>
+
+		</B></FONT>
+		</TD></TR>
+	</TABLE>
+	</div>
+	</BODY>
+</HTML>
