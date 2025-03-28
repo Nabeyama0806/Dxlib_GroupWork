@@ -84,6 +84,7 @@ void Player::OnCollision(const ModelActor* other)
 	//•Ç
 	if (other->GetName() == "Wall")
 	{
+		m_camera->SetlookAt(nullptr);
 		Destroy();
 	}
 }

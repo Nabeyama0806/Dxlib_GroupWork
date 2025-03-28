@@ -11,9 +11,15 @@ void Camera::Update()
 
 	Vector3 tempPosition1;
 	Vector3 tempPosition2;
-	Vector3 cameraLookAtPosition;						//注視点
-	cameraLookAtPosition = m_lookAt->GetPosition();		//注視点を設定
-	cameraLookAtPosition.y += LookAtHeight;				//注視点のオフセット
+	if (m_lookAt != nullptr)
+	{
+		m_targetPos = m_lookAt->GetPosition();		//注視点を設定
+		m_targetPos.y += LookAtHeight;				//注視点のオフセット
+	}
+	else
+	{
+		m_targetPos.y = LookAtHeight;
+	}
 
 	//最初に垂直角度を反映した位置を算出
 	float sinParam = static_cast<float>(sin(Math::DegToRad(m_cameraVAngle)));
@@ -30,8 +36,7 @@ void Camera::Update()
 	tempPosition2.z = sinParam * tempPosition1.x + cosParam * tempPosition1.z;
 
 	//算出した座標に注視点の位置を加算したものがカメラの位置
-	m_cameraPos = tempPosition2 + cameraLookAtPosition;
-	m_targetPos = cameraLookAtPosition;
+	m_cameraPos = tempPosition2 + m_targetPos;
 }
 
 //描画
