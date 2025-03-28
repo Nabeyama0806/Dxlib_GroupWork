@@ -37,13 +37,69 @@ public:
 	// ï`âÊ
 	virtual void Draw(const Transform& transform) const override
 	{
-		DrawBox(
-			static_cast<int>(500),
-			static_cast<int>(300),
-			static_cast<int>(1000),
-			static_cast<int>(600),
-			GetColor(0, 255, 0), true
-		);
+		// è„ÇÃéläp
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		// ècÇÃñ_
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y + m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		// â∫ÇÃéläp
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x + m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			GetColor(255, 255, 255));
+
+		DrawLine3D(
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z + m_size.z / 2),
+			VGet(transform.position.x - m_size.x / 2, transform.position.y - m_size.y / 2, transform.position.z - m_size.z / 2),
+			GetColor(255, 255, 255));
+
 	}
 #endif
 };

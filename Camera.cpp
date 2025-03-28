@@ -7,7 +7,7 @@
 void Camera::Update()
 {
 	// ƒJƒƒ‰‚ÌŽ‹“_ˆÚ“®
-	if (!Input::GetInstance()->IsKeyPress(KEY_INPUT_P)) MouseCamera();
+	if (!Input::GetInstance()->IsKeyPress(KEY_INPUT_LSHIFT)) MouseCamera();
 
 	Vector3 tempPosition1;
 	Vector3 tempPosition2;
@@ -53,7 +53,7 @@ void Camera::MouseCamera()
 	Vector2 mousePos = Input::GetInstance()->GetMousePoint();
 	m_cameraHAngle -= (mousePos.x - Screen::Center.x) * CameraAngleSpeed;
 	m_cameraVAngle += (mousePos.y - Screen::Center.y) * CameraAngleSpeed;
-	Input::GetInstance()->SetMousePoint(Screen::Center.x, Screen::Center.y);
+	Input::GetInstance()->SetMousePoint(static_cast<int>(Screen::Center.x), static_cast<int>(Screen::Center.y));
 	if (m_cameraVAngle >= CameraMaxVAngle) m_cameraVAngle = CameraMaxVAngle;
 	if (m_cameraVAngle <= CameraMinVAngle) m_cameraVAngle = CameraMinVAngle;
 }
