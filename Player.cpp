@@ -10,7 +10,8 @@
 Player::Player(Camera* camera) :
 	ModelActor("Player"),
 	m_camera(camera),
-	m_onGround(false)
+	m_onGround(false),
+	m_onWall(false)
 {
 	//アニメーションの登録
 	m_model = new Model("Man/Man.mv1");
@@ -58,7 +59,14 @@ void Player::Update()
 	{
 		//移動
 		move.Normalize();
-		m_transform.position += move * Speed * speedRate;
+		if (m_onWall)
+		{
+			m_transform.position -= move * Speed * speedRate;	// 少し離す
+		}
+		else
+		{
+			m_transform.position += move * Speed * speedRate;
+		}
 
 		//回転
 		m_transform.rotation = Quaternion::Slerp(
@@ -73,7 +81,7 @@ void Player::Update()
 	if (!m_onGround)
 	{
 		// 重力
-		m_transform.position.y -= GravityScale;
+		//m_transform.position.y -= GravityScale;
 	}
 
 	// ジャンプ
@@ -87,8 +95,9 @@ void Player::Update()
 	//設定したアニメーションの再生
 	m_model->PlayAnime(animeIndex);
 
-	// 地面との当たり判定のリセット
+	// 地面と壁との当たり判定のリセット
 	m_onGround = false;
+	m_onWall = false;
 }
 
 //描画
@@ -103,7 +112,8 @@ void Player::OnCollision(const ModelActor* other)
 	//壁
 	if (other->GetName() == "Wall")
 	{
-		m_transform.position = SpawnPos;
+		m_onWall = true;
+		//m_transform.position = SpawnPos;
 	}
 
 	if (other->GetName() == "Ground")

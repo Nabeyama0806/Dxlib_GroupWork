@@ -27,6 +27,7 @@ private:
 	Camera* m_camera;
 
 	bool m_onGround;	// ’n–Ê‚É‚Â‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	bool m_onWall;		// •Ç‚É“–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
 protected:
 	virtual void Update() override;	//XV
 	virtual void Draw() override;	//•`‰æ
