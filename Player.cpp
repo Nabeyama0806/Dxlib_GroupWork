@@ -23,12 +23,9 @@ Player::Player(Camera* camera) :
 	m_transform.position = SpawnPos;
 	m_transform.scale = Scale;
 
-	/*
 	Vector3 colliderScale = Vector3(100, 170, 100) * Scale.x;
 	//è’ìÀîªíË
-	m_collider = new BoxCollider(colliderScale, Vector3(0,80,0) * Scale.x);
-	*/
-	m_collider = new BoxCollider(m_transform.scale);
+	m_collider = new BoxCollider(colliderScale, ColliderOffset.Scale(m_transform.scale));
 }
 
 //çXêV
