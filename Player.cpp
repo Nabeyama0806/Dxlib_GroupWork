@@ -9,7 +9,8 @@
 //コンストラクタ
 Player::Player(Camera* camera) :
 	ModelActor("Player"),
-	m_camera(camera)
+	m_camera(camera),
+	m_onGround(false)
 {
 	//アニメーションの登録
 	m_model = new Model("Man/Man.mv1");
@@ -68,9 +69,26 @@ void Player::Update()
 		//移動アニメーションを設定
 		animeIndex = static_cast<int>(Model::Anime::Run);
 	}
+
+	if (!m_onGround)
+	{
+		// 重力
+		m_transform.position.y -= GravityScale;
+	}
+
+	// ジャンプ
+	if (Input::GetInstance()->IsKeyDown(KEY_INPUT_SPACE))
+	{
+
+	}
+
+
 	
 	//設定したアニメーションの再生
 	m_model->PlayAnime(animeIndex);
+
+	// 地面との当たり判定のリセット
+	m_onGround = false;
 }
 
 //描画
@@ -86,5 +104,10 @@ void Player::OnCollision(const ModelActor* other)
 	if (other->GetName() == "Wall")
 	{
 		m_transform.position = SpawnPos;
+	}
+
+	if (other->GetName() == "Ground")
+	{
+		m_onGround = true;
 	}
 }

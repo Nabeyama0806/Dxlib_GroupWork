@@ -53,16 +53,25 @@ void SceneGame::Initialize()
 	uiLayer->AddChild(m_tmpUi);
 
 	//壁
-	Vector3 pos	 = Vector3(0, 100, 1500);
-	Vector3 size = Vector3(300, 300, 300);
+	Vector3 wallPos	 = Vector3(0, 100, 1500);
+	Vector3 wallSize = Vector3(300, 300, 300);
 	actorLayer->AddChild(new HitBox(
 		"Wall",
-		pos,
-		size
+		wallPos,
+		wallSize
+	));
+
+	// 床
+	Vector3 floorPos = Vector3(0, -20, 0);
+	Vector3 floorSize = Vector3(2000, 50, 2000);
+	actorLayer->AddChild(new HitBox(
+		"Ground",
+		floorPos,
+		floorSize
 	));
 
 	//魔法瓶の表示
-	ModelActor* model = new ModelActor("kaminari", "Resource/kaminariポーション.mv1", pos);
+	ModelActor* model = new ModelActor("kaminari", "Resource/kaminariポーション.mv1", wallPos);
 	model->ChangeScale(70);
 	actorLayer->AddChild(model);
 

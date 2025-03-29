@@ -30,8 +30,8 @@ bool Collision::Check(
 }
 
 bool Collision::Check(
-	const Transform& transform1, const BoxCollider* box,
-	const Transform& transform2, const CircleCollider* circle
+	const Transform& transform1, const CircleCollider* circle,
+	const Transform& transform2, const BoxCollider* box
 	)
 {
 	//‹éŒ`‚Æ‰~Œ`‚Ì“–‚½‚è”»’è(–¢ŽÀ‘•)

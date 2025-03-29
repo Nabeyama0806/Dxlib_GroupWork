@@ -24,7 +24,7 @@ public:
 	//‹éŒ`‚Æ‰~Œ`‚Ì“–‚½‚è”»’è
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const BoxCollider* collider) const override
 	{
-		return Collision::Check(transform1, collider, transform2, this);
+		return Collision::Check(transform1, this, transform2, collider);
 	}
 
 	//‰~Œ`‚Æ‰~Œ`‚Ì“–‚½‚è”»’è

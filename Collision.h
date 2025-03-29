@@ -13,8 +13,8 @@ public:
 	);
 
 	static bool Check(
-		const Transform& transform1, const BoxCollider* box1,
-		const Transform& transform2, const CircleCollider* box2
+		const Transform& transform1, const CircleCollider* box2,
+		const Transform& transform2, const BoxCollider* box1
 	);
 
 	static bool Check(
