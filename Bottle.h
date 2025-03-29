@@ -15,13 +15,16 @@ public:
 		Length
 	};
 
-	Type m_type;	//自身の属性
-
 private:
 	static constexpr float Gravity = 1.2f;	//重力
 
+	Vector3 m_effectiveArea;	//効果の有効範囲
+	Type m_type;				//自身の属性
+
 protected:
-	void Throw();
+	virtual void ActiveEffect() = 0;		//接触時の発動効果
+	void Throw(Vector3& position, Vector3& addforce);
+	Vector3 m_addForce;			//投げられる力
 
 public:
 	//コンストラクタ

@@ -7,3 +7,7 @@ Bottle::Bottle(Vector3& position) :
 
 }
 
+void Bottle::Throw(Vector3& position, Vector3& addForce)
+{
+
+}
